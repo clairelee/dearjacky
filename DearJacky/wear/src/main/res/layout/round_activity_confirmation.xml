@@ -7,11 +7,11 @@
     tools:deviceIds="wear_round"
     android:background="@drawable/confirmation">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+    <Button
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:id="@+id/button5"
+        android:background="@android:color/transparent">
+    </Button>
 
 </RelativeLayout>

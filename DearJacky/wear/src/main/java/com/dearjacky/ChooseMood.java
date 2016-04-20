@@ -1,8 +1,11 @@
 package com.dearjacky;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class ChooseMood extends Activity {
@@ -20,5 +23,17 @@ public class ChooseMood extends Activity {
                 mTextView = (TextView) stub.findViewById(R.id.text);
             }
         });
+
+        Button button;
+        button = (Button)findViewById(R.id.button1);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), SelectIntensity.class);
+                startActivity(i);
+            }
+        });
+
     }
 }
