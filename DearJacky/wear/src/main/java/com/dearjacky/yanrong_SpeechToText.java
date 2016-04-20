@@ -1,4 +1,4 @@
-package com.example.yanrongli.testspeechtotext;
+package com.dearjacky;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
