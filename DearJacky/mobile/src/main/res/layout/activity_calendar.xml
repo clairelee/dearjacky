@@ -6,12 +6,40 @@
     tools:context="com.dearjacky.CalendarActivity">
 
 
-    <ImageButton
+    <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/calendarview"
         android:src="@drawable/calendarview"
         android:padding="0dp"
         android:scaleType="centerCrop"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/calendarview"
+        android:layout_alignEnd="@+id/calendarview"
+        android:background="@android:color/transparent"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:id="@+id/button2"
+        android:layout_below="@+id/button"
+        android:layout_alignStart="@+id/calendarview"
+        android:layout_alignEnd="@+id/calendarview"
+        android:background="@android:color/transparent"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_below="@+id/button2"
+        android:layout_alignStart="@+id/calendarview"
+        android:layout_alignEnd="@+id/calendarview"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"/>
 
 </RelativeLayout>

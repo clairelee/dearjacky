@@ -6,22 +6,36 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 public class CalendarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-
         this.setContentView(R.layout.activity_calendar);
 
-        ImageButton calendarView = (ImageButton)findViewById(R.id.calendarview);
+        // Set Action Bar color
+        android.support.v7.app.ActionBar a = getSupportActionBar();
+        a.setTitle("Jacky");
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
+        a.setBackgroundDrawable(colorDrawable);
 
-        calendarView.setOnClickListener(new View.OnClickListener() {
+
+        Button button, button2, button3;
+        button = (Button)findViewById(R.id.button);
+        button2 = (Button)findViewById(R.id.button2);
+        button3 = (Button)findViewById(R.id.button3);
+
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), RespondActivity.class);
+                startActivity(i);
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), TimelineActivity.class);
@@ -29,10 +43,15 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-        android.support.v7.app.ActionBar a = getSupportActionBar();
-        a.setTitle("Jacky");
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
-        a.setBackgroundDrawable(colorDrawable);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), EditResponseActivity.class);
+                startActivity(i);
+            }
+        });
+
+
 
     }
 }

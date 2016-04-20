@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".TimelineActivity" />
-        <activity android:name=".EditResponseActivity"></activity>
+        <activity android:name=".EditResponseActivity" />
+        <activity android:name=".RespondActivity"></activity>
     </application>
 
 </manifest>
