@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ChooseMood"
+    tools:context="com.dearjacky.SelectIntensity"
     tools:deviceIds="wear_square">
 
     <TextView
