@@ -1,8 +1,10 @@
 package com.dearjacky;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -23,6 +25,10 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
+        android.support.v7.app.ActionBar a = getSupportActionBar();
+        a.setTitle("January");
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
+        a.setBackgroundDrawable(colorDrawable);
 
     }
 }

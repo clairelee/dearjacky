@@ -1,6 +1,8 @@
 package com.dearjacky;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,10 +29,10 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
+        android.support.v7.app.ActionBar a = getSupportActionBar();
+        a.setTitle("Jacky");
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
+        a.setBackgroundDrawable(colorDrawable);
 
     }
 }
