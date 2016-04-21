@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChooseMood"
+    tools:context="com.dearjacky.AddTags"
     tools:deviceIds="wear_round"
-    android:background="@drawable/mood">
+    android:background="@drawable/tags">
 
     <Button
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:id="@+id/button1"
+        android:id="@+id/button4"
         android:background="@android:color/transparent">
     </Button>
 

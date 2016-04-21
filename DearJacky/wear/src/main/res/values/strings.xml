@@ -3,4 +3,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
+    <string name="title_activity_select_intensity">SelectIntensity</string>
+    <string name="title_activity_add_notes">AddNotes</string>
+    <string name="title_activity_add_tags">AddTags</string>
+    <string name="title_activity_confirmation">Confirmation</string>
 </resources>

@@ -3,6 +3,7 @@ package com.dearjacky;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,6 +13,15 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_calendar);
+
+
+//        Start App on wear
+        Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
+//        sendIntent.putExtra("zip", repArray.toString());
+//        Log.d("T", "message length: " + repArray.toString().length());
+//        Log.d("T", "message "+ repArray.toString());
+
+        startService(sendIntent);
 
         // Set Action Bar color
         android.support.v7.app.ActionBar a = getSupportActionBar();
