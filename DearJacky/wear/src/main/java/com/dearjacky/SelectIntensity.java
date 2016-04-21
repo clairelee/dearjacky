@@ -21,18 +21,19 @@ public class SelectIntensity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
+                Button button;
+                button = (Button)findViewById(R.id.button2);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getBaseContext(), AddNotes.class);
+                        startActivity(i);
+                    }
+                });
             }
         });
 
-        Button button;
-        button = (Button)findViewById(R.id.button2);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), AddNotes.class);
-                startActivity(i);
-            }
-        });
     }
 }
