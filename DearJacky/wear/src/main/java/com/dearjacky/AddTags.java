@@ -1,8 +1,11 @@
 package com.dearjacky;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class AddTags extends Activity {
@@ -18,6 +21,17 @@ public class AddTags extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
+            }
+        });
+
+        Button button;
+        button = (Button)findViewById(R.id.button4);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), Confirmation.class);
+                startActivity(i);
             }
         });
     }

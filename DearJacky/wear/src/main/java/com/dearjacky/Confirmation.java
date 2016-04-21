@@ -1,8 +1,11 @@
 package com.dearjacky;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class Confirmation extends Activity {
@@ -20,5 +23,9 @@ public class Confirmation extends Activity {
                 mTextView = (TextView) stub.findViewById(R.id.text);
             }
         });
+
+
     }
+
+
 }
