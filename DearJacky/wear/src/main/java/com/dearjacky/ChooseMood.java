@@ -21,19 +21,20 @@ public class ChooseMood extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
+                Button button;
+                button = (Button)findViewById(R.id.button1);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getBaseContext(), SelectIntensity.class);
+                        startActivity(i);
+                    }
+                });
             }
         });
 
-        Button button;
-        button = (Button)findViewById(R.id.button1);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), SelectIntensity.class);
-                startActivity(i);
-            }
-        });
 
     }
 }

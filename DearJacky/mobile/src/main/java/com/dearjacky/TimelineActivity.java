@@ -44,8 +44,12 @@ public class TimelineActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), EditResponseActivity.class);
-                startActivity(i);
+                Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
+//        sendIntent.putExtra("zip", repArray.toString());
+//        Log.d("T", "message length: " + repArray.toString().length());
+//        Log.d("T", "message "+ repArray.toString());
+
+                startService(sendIntent);
             }
         });
 
