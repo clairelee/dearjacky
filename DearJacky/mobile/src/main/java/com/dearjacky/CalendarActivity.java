@@ -1,8 +1,6 @@
 package com.dearjacky;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,9 +15,10 @@ public class CalendarActivity extends AppCompatActivity {
 
         // Set Action Bar color
         android.support.v7.app.ActionBar a = getSupportActionBar();
-        a.setTitle("Jacky");
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
-        a.setBackgroundDrawable(colorDrawable);
+        a.hide();
+        //a.setTitle("Jacky");
+        //ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
+        //a.setBackgroundDrawable(colorDrawable);
 
 
         Button button, button2, button3;
@@ -30,7 +29,7 @@ public class CalendarActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), RespondActivity.class);
+                Intent i = new Intent(getBaseContext(), SettingsActivity.class);
                 startActivity(i);
             }
         });
@@ -38,7 +37,7 @@ public class CalendarActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), TimelineActivity.class);
+                Intent i = new Intent(getBaseContext(), RespondActivity.class);
                 startActivity(i);
             }
         });
@@ -46,7 +45,7 @@ public class CalendarActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), EditResponseActivity.class);
+                Intent i = new Intent(getBaseContext(), TimelineActivity.class);
                 startActivity(i);
             }
         });

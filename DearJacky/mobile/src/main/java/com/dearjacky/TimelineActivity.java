@@ -1,8 +1,6 @@
 package com.dearjacky;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,9 +14,10 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         android.support.v7.app.ActionBar a = getSupportActionBar();
-        a.setTitle("January");
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
-        a.setBackgroundDrawable(colorDrawable);
+        a.hide();
+//        a.setTitle("January");
+//        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
+//        a.setBackgroundDrawable(colorDrawable);
 
         Button button, button2, button3;
         button = (Button)findViewById(R.id.button);
@@ -28,7 +27,7 @@ public class TimelineActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), RespondActivity.class);
+                Intent i = new Intent(getBaseContext(), SettingsActivity.class);
                 startActivity(i);
             }
         });
@@ -36,7 +35,7 @@ public class TimelineActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), EditResponseActivity.class);
+                Intent i = new Intent(getBaseContext(), RespondActivity.class);
                 startActivity(i);
             }
         });

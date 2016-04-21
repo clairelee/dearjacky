@@ -1,9 +1,7 @@
 package com.dearjacky;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class RespondActivity extends AppCompatActivity {
 
@@ -14,8 +12,10 @@ public class RespondActivity extends AppCompatActivity {
 
         // Set Action Bar color
         android.support.v7.app.ActionBar a = getSupportActionBar();
-        a.setTitle("Jacky Says");
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
-        a.setBackgroundDrawable(colorDrawable);
+        a.hide();
+
+        //a.setTitle("Jacky Says");
+        //ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
+        //a.setBackgroundDrawable(colorDrawable);
     }
 }
