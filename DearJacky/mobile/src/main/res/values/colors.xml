@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorExcited">#00BCD4</color>
+    <color name="colorCalm">#2196F3</color>
+    <color name="colorDepressed">#3F51B5</color>
+    <color name="colorAngry">#F44336</color>
+    <color name="colorExcitedBackground">#0097A7</color>
+    <color name="colorCalmBackground">#1976D2</color>
+    <color name="colorDepressedBackground">#303F9F</color>
+    <color name="colorAngryBackground">#D32F2F</color>
+
 </resources>
