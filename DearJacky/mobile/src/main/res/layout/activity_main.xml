@@ -5,76 +5,57 @@
     android:orientation="vertical">
     <!--android:background="@color/colorBackground"-->
 
-    <HorizontalScrollView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="?android:listPreferredItemHeight">
-        <!--android:layout_marginTop="@dimen/default_margin"-->
-        <!--&gt;-->
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/imageView"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/jacky60" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            app:cardBackgroundColor="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            >
+            android:id="@+id/cv"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="3"
+            android:layout_marginRight="30dp"
+            android:minHeight="60dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <com.alorma.timeline.RoundTimelineView
-                android:id="@+id/timeline1"
-                android:layout_width="?android:listPreferredItemHeight"
-                android:layout_height="?android:listPreferredItemHeight"
-                app:timeline_indicatorSize="20dp"
-                app:timeline_lineStyle="linear"
-                app:timeline_type="middle"
-                />
+                <com.dearjacky.Typewriter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/event_name"
+                    android:textColor="@color/text_white"
+                    android:textSize="15dp"
+                    android:layout_margin="8dp" />
+            </LinearLayout>
 
-            <com.alorma.timeline.RoundTimelineView
-                android:id="@+id/timeline2"
-                android:layout_width="?android:listPreferredItemHeight"
-                android:layout_height="?android:listPreferredItemHeight"
-                app:timeline_type="line"
-                />
-
-            <com.alorma.timeline.RoundTimelineView
-                android:id="@+id/timeline3"
-                android:layout_width="?android:listPreferredItemHeight"
-                android:layout_height="?android:listPreferredItemHeight"
-                app:timeline_type="start"
-                />
-
-            <com.alorma.timeline.RoundTimelineView
-                android:id="@+id/timeline4"
-                android:layout_width="?android:listPreferredItemHeight"
-                android:layout_height="?android:listPreferredItemHeight"
-                app:timeline_type="middle"
-                />
+        </android.support.v7.widget.CardView>
 
 
-            <com.alorma.timeline.RoundTimelineView
-                android:id="@+id/timeline5"
-                android:layout_width="?android:listPreferredItemHeight"
-                android:layout_height="?android:listPreferredItemHeight"
-                app:timeline_type="end"
-                />
+    </LinearLayout>
 
-            <com.alorma.timeline.RoundTimelineView
-                android:id="@+id/timeline3_align_top"
-                android:layout_width="?android:listPreferredItemHeight"
-                android:layout_height="?android:listPreferredItemHeight"
-                app:timeline_alignment="start"
-                app:timeline_type="middle"
-                />
-
-            <com.alorma.timeline.RoundTimelineView
-                android:id="@+id/timeline3_align_bottom"
-                android:layout_width="?android:listPreferredItemHeight"
-                android:layout_height="?android:listPreferredItemHeight"
-                app:timeline_alignment="end"
-                app:timeline_type="middle"
-                />
-
-        </LinearLayout>
-    </HorizontalScrollView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="January"
+        android:id="@+id/textView"
+        android:layout_gravity="center" />
 
     <ListView
         android:id="@+id/list"
@@ -82,4 +63,5 @@
         android:layout_height="match_parent"
         android:divider="@null"
         />
+
 </LinearLayout>

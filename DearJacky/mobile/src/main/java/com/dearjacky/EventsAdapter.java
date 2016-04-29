@@ -33,7 +33,8 @@ class EventsAdapter extends ArrayAdapter<Events> {
             viewHolder = new ViewHolderItem();
             viewHolder.leftText = (TextView) convertView.findViewById(R.id.event_name);
             viewHolder.leftText.setText("Hi");
-            viewHolder.text = (TextView) convertView.findViewById(R.id.textView);
+            viewHolder.number = (TextView) convertView.findViewById(R.id.number);
+            viewHolder.day = (TextView) convertView.findViewById(R.id.day);
             viewHolder.timeline = (TimelineView) convertView.findViewById(R.id.timeline);
             convertView.setTag(viewHolder);
             viewHolder.cv = (CardView) convertView.findViewById(R.id.cv);
@@ -57,10 +58,10 @@ class EventsAdapter extends ArrayAdapter<Events> {
         viewHolder.leftText.setText(titles[(int)(Math.random()*9)]);
 
         if(Math.random()*5 < 1){
-            int month = (int)(Math.random()*12 +1);
+            String[] days = {"Sun", "Mon", "Tues", "Wed", "Fri", "Sat", "Sun" };
             int day = (int)(Math.random()*31 +1);
-            int year = (int)(Math.random()*7+10);
-            viewHolder.text.setText(month+"/"+day);
+            viewHolder.day.setText(days[day%7]);
+            viewHolder.number.setText(""+day);
 
         }
         viewHolder.timeline.setTimelineType(events.getType());
@@ -88,10 +89,12 @@ class EventsAdapter extends ArrayAdapter<Events> {
     }
 
     static class ViewHolderItem {
-        TextView text;
+        TextView day;
+        TextView number;
         TimelineView timeline;
         TextView leftText;
         TextView timeStamp;
         CardView cv;
+
     }
 }

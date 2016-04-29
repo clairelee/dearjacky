@@ -1,8 +1,11 @@
 package com.dearjacky;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alorma.timeline.RoundTimelineView;
 import com.alorma.timeline.TimelineView;
@@ -14,7 +17,13 @@ public class TimelineActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        android.support.v7.app.ActionBar a = getSupportActionBar();
+        a.setTitle("Jacky");
+        a.setBackgroundDrawable(new ColorDrawable( ContextCompat.getColor(this, R.color.colorPrimary)));
 
+        Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
+        jackyText.setCharacterDelay(50);
+        jackyText.animateText("Looks like you're feeling a bit down today. Tap me or this speech icon for some suggestions :)");
         ListView list = (ListView) findViewById(R.id.list);
 
         ArrayList<Events> items = new ArrayList<>();
@@ -26,7 +35,7 @@ public class TimelineActivity extends AppCompatActivity {
         items.add(new Events("Last Event", TimelineView.TYPE_END, (int)(Math.random()*4)));
         list.setAdapter(new EventsAdapter(this, items));
 
-        RoundTimelineView timelineView = (RoundTimelineView) findViewById(R.id.timeline1);
+//        RoundTimelineView timelineView = (RoundTimelineView) findViewById(R.id.timeline1);
 //        Glide.with(this).load(R.drawable.avatar).into(timelineView);
 
 //        RoundTimelineView timeline3_align_top =
