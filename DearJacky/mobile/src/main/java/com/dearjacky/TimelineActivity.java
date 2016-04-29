@@ -2,8 +2,11 @@ package com.dearjacky;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.alorma.timeline.TimelineView;
@@ -15,8 +18,9 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         android.support.v7.app.ActionBar a = getSupportActionBar();
-        a.setTitle("Jacky");
+        a.setTitle("January");
         a.setBackgroundDrawable(new ColorDrawable( ContextCompat.getColor(this, R.color.colorPrimary)));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
         jackyText.setCharacterDelay(50);
@@ -48,5 +52,21 @@ public class TimelineActivity extends AppCompatActivity {
 //        timeline3_align_bottom.setIndicatorSize(
 //            getResources().getDimensionPixelOffset(R.dimen.large_timeline_2));
 //        timeline3_align_bottom.setTimelineStyle(TimelineView.STYLE_LINEAR);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getParentActivityIntent() == null) {
+                    Log.i("T", "You have forgotten to specify the parentActivityName in the AndroidManifest!");
+                    onBackPressed();
+                } else {
+                    NavUtils.navigateUpFromSameTask(this);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

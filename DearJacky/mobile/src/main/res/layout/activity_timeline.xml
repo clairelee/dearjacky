@@ -2,46 +2,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="16dp">
     <!--android:background="@color/colorBackground"-->
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:id="@+id/imageView"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/jacky60" />
+            android:background="@drawable/jacky" />
 
         <android.support.v7.widget.CardView
             android:layout_width="0dp"
             app:cardBackgroundColor="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:id="@+id/cv"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
             android:layout_weight="3"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="12dp"
             android:minHeight="60dp">
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_margin="12dp">
 
                 <com.dearjacky.Typewriter
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/event_name"
                     android:textColor="@color/text_white"
-                    android:textSize="15dp"
-                    android:layout_margin="8dp" />
+                    android:textSize="18dp"
+                    />
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
@@ -49,19 +46,13 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="January"
-        android:id="@+id/textView"
-        android:layout_gravity="center" />
-
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
+        android:scrollbars="none"
+        android:layout_marginTop="16dp"
         />
 
 </LinearLayout>
