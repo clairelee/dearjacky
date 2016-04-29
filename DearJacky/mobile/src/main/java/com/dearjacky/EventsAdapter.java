@@ -2,6 +2,7 @@ package com.dearjacky;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ class EventsAdapter extends ArrayAdapter<Events> {
             viewHolder.timeline = (TimelineView) convertView.findViewById(R.id.timeline);
             convertView.setTag(viewHolder);
             viewHolder.cv = (CardView) convertView.findViewById(R.id.cv);
+            viewHolder.tail = (View) convertView.findViewById(R.id.tail);
             viewHolder.timeStamp = (TextView) convertView.findViewById(R.id.time_stamp);
         } else {
             viewHolder = (ViewHolderItem) convertView.getTag();
@@ -68,17 +70,23 @@ class EventsAdapter extends ArrayAdapter<Events> {
         viewHolder.timeline.setTimelineAlignment(events.getAlignment());
 
         int color = 0;
+        int tail = R.drawable.tail;
         if (events.getMood() == 0) {
             color = ContextCompat.getColor(parent.getContext(), R.color.colorExcited);
+            tail = R.drawable.tail_excited;
         }else if(events.getMood() == 1) {
             color = ContextCompat.getColor(parent.getContext(), R.color.colorCalm);
+            tail = R.drawable.tail_happy;
         }else if(events.getMood() == 2) {
             color = ContextCompat.getColor(parent.getContext(), R.color.colorDepressed);
+            tail = R.drawable.tail_sad;
         }else if(events.getMood() == 3) {
             color = ContextCompat.getColor(parent.getContext(), R.color.colorAngry);
+            tail = R.drawable.tail_angry;
         }
 
         viewHolder.cv.setCardBackgroundColor(color);
+        viewHolder.tail.setBackgroundResource(tail);
         viewHolder.timeline.setIndicatorColor(color);
         viewHolder.timeline.setInternalColor(color);
 
@@ -95,6 +103,7 @@ class EventsAdapter extends ArrayAdapter<Events> {
         TextView leftText;
         TextView timeStamp;
         CardView cv;
+        View tail;
 
     }
 }
