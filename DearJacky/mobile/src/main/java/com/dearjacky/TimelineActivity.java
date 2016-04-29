@@ -5,18 +5,15 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.alorma.timeline.RoundTimelineView;
 import com.alorma.timeline.TimelineView;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 public class TimelineActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_timeline);
         android.support.v7.app.ActionBar a = getSupportActionBar();
         a.setTitle("Jacky");
         a.setBackgroundDrawable(new ColorDrawable( ContextCompat.getColor(this, R.color.colorPrimary)));

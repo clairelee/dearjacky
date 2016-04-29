@@ -3,6 +3,7 @@ package com.dearjacky;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -13,7 +14,7 @@ public class Typewriter extends TextView {
     private CharSequence mText;
     private int mIndex;
     private long mDelay = 500; //Default 500ms delay
-
+    private long initialDelay = 0;
 
     public Typewriter(Context context) {
         super(context);
@@ -35,15 +36,25 @@ public class Typewriter extends TextView {
     };
 
     public void animateText(CharSequence text) {
+//        try {
+//            wait(initialDelay);
+//        }catch(Exception e){
+//            Log.d("T", e.toString());
+//        }
         mText = text;
         mIndex = 0;
 
         setText("");
+
         mHandler.removeCallbacks(characterAdder);
         mHandler.postDelayed(characterAdder, mDelay);
     }
 
     public void setCharacterDelay(long millis) {
         mDelay = millis;
+    }
+
+    public void setInitialDelay(long millis) {
+        initialDelay = millis;
     }
 }
