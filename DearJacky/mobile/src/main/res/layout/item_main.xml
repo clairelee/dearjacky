@@ -59,7 +59,6 @@
         android:id="@+id/timeline"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        timeline:timeline_alignment="start"
         timeline:timeline_drawInternal="false"
         timeline:timeline_indicatorColor="@color/colorCalm"
         timeline:timeline_indicatorSize="6dp"
@@ -80,6 +79,7 @@
 
         <TextView
             android:id="@+id/number"
+            android:textColor="@color/colorBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -90,10 +90,11 @@
             android:textAlignment="gravity"/>
         <TextView
             android:id="@+id/day"
+            android:textColor="@color/colorBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             tools:ignore="RtlHardcoded"
             android:gravity="center_vertical|right"
