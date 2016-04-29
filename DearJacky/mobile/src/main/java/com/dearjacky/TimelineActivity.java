@@ -1,56 +1,46 @@
 package com.dearjacky;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ListView;
+
+import com.alorma.timeline.RoundTimelineView;
+import com.alorma.timeline.TimelineView;
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 
 public class TimelineActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
+        setContentView(R.layout.activity_main);
 
-        android.support.v7.app.ActionBar a = getSupportActionBar();
-        a.hide();
-//        a.setTitle("January");
-//        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
-//        a.setBackgroundDrawable(colorDrawable);
+        ListView list = (ListView) findViewById(R.id.list);
 
-        Button button, button2, button3;
-        button = (Button)findViewById(R.id.button);
-        button2 = (Button)findViewById(R.id.button2);
-        button3 = (Button)findViewById(R.id.button3);
+        ArrayList<Events> items = new ArrayList<>();
+        items.add(new Events("First Event", TimelineView.TYPE_START, (int)(Math.random()*4)));
+        for (int i = 0; i < 20; i++) {
+            items.add(new Events(String.format("Middle Event", i + 1),
+                TimelineView.TYPE_MIDDLE, (int)(Math.random()*4)));
+        }
+        items.add(new Events("Last Event", TimelineView.TYPE_END, (int)(Math.random()*4)));
+        list.setAdapter(new EventsAdapter(this, items));
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), SettingsActivity.class);
-                startActivity(i);
-            }
-        });
+        RoundTimelineView timelineView = (RoundTimelineView) findViewById(R.id.timeline1);
+//        Glide.with(this).load(R.drawable.avatar).into(timelineView);
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), RespondActivity.class);
-                startActivity(i);
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
-//        sendIntent.putExtra("zip", repArray.toString());
-//        Log.d("T", "message length: " + repArray.toString().length());
-//        Log.d("T", "message "+ repArray.toString());
-
-                startService(sendIntent);
-            }
-        });
-
+//        RoundTimelineView timeline3_align_top =
+//            (RoundTimelineView) findViewById(R.id.timeline3_align_top);
+//        timeline3_align_top.setIndicatorSize(
+//            getResources().getDimensionPixelOffset(R.dimen.large_timeline_1));
+//        timeline3_align_top.setTimelineType(TimelineView.TYPE_HIDDEN);
+//
+////        Glide.with(this).load(R.drawable.avatar).into(timeline3_align_top);
+//
+//        RoundTimelineView timeline3_align_bottom =
+//            (RoundTimelineView) findViewById(R.id.timeline3_align_bottom);
+//        timeline3_align_bottom.setIndicatorSize(
+//            getResources().getDimensionPixelOffset(R.dimen.large_timeline_2));
+//        timeline3_align_bottom.setTimelineStyle(TimelineView.STYLE_LINEAR);
     }
 }
