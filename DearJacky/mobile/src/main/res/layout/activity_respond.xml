@@ -131,7 +131,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         app:cardBackgroundColor="@color/text_white"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:id="@+id/cv4"
         android:layout_weight="2"
         android:minHeight="60dp"
@@ -150,14 +150,102 @@
                 android:text="Favorite Contacts:"
                 android:id="@+id/textView"
                 android:layout_gravity="center"
-                android:layout_weight=".1" />
+                android:layout_weight="0.01" />
 
-            <ListView
-                android:id="@+id/list3"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:layout_weight="2" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.14">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2" >
+
+                    <com.dearjacky.RoundedQuickContactBadge
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/quickContactBadge"
+                        android:layout_weight=".6"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:id="@+id/textView2"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2" >
+
+                    <com.dearjacky.RoundedQuickContactBadge
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/quickContactBadge2"
+                        android:layout_weight=".6"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:id="@+id/textView3"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2" >
+
+                    <com.dearjacky.RoundedQuickContactBadge
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/quickContactBadge3"
+                        android:layout_weight=".6"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:id="@+id/textView4"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".2" >
+
+                    <com.dearjacky.RoundedQuickContactBadge
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/quickContactBadge4"
+                        android:layout_weight=".6"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New Text"
+                        android:id="@+id/textView5"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
