@@ -55,6 +55,7 @@ public class WatchToPhoneService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         Bundle extras = intent.getExtras();
+        System.out.print("meowmeowmeow");
         mMood = extras.getString("mood");
         mIntensity = extras.getString("intensity");
         mNote = extras.getString("note");

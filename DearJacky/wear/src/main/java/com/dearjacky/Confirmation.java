@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,6 +45,19 @@ public class Confirmation extends Activity {
                 if(mMood.equals("ok")) layout.setBackgroundResource(R.color.colorCalmBackground);
                 if(mMood.equals("sad")) layout.setBackgroundResource(R.color.colorDepressedBackground);
                 if(mMood.equals("angry")) layout.setBackgroundResource(R.color.colorAngryBackground);
+
+                Button buttonClose = (Button) findViewById(R.id.button_close);
+                buttonClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //finish();
+                        Intent intent = new Intent(getApplicationContext(), ChooseMood.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //intent.putExtra("EXIT", true);
+                        System.out.println("meow12345");
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
