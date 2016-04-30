@@ -8,6 +8,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -27,6 +29,16 @@ public class CalendarActivity extends AppCompatActivity {
         a.setTitle("Jacky");
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
 
+        Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
+        jackyText.setCharacterDelay(50);
+        jackyText.animateText("Seems like this week was rough. If you tap here, I have some suggestions that might cheer you up!");
+        jackyText.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), RespondActivity.class);
+                startActivity(intent);
+            }
+        });
+//        LinearLayout jackyArea = (LinearLayout) findViewById(R.id.)
 //        Start App on wear
         //Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
         //startService(sendIntent);

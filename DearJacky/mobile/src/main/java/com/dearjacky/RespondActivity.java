@@ -78,7 +78,14 @@ public class RespondActivity extends AppCompatActivity {
             intList.add(new Integer(i));
         }
         Collections.shuffle(intList);
-        for(int i = 0; i < Math.max(4,intList.size()); i++){
+        if(intList.size() == 0){
+            name1.setText("Go to your contacts app and star some contacts to see people here!");
+        }
+        for(int i = 0; i < 4; i++){
+            names[i].setText("");
+        }
+
+        for(int i = 0; i < Math.min(4,intList.size()); i++){
             int index = intList.get(i);
             String name = ((String)keys.get(index));
             String contactUri = ((String[])h.get(name))[0];
@@ -89,6 +96,8 @@ public class RespondActivity extends AppCompatActivity {
                 Bitmap mThumbnail =
                         loadContactPhotoThumbnail(thumbUri);
                 badges[i].setImageBitmap(mThumbnail);
+            }else{
+                badges[i].setImageDrawable(getResources().getDrawable(R.drawable.profile_default));
             }
 
 

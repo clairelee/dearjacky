@@ -54,7 +54,7 @@
                         android:layout_height="match_parent"
                         android:id="@+id/event_name"
                         android:textColor="@color/text_white"
-                        android:textSize="18sp"
+                        android:textSize="14dp"
                         />
                 </LinearLayout>
 
@@ -262,7 +262,7 @@
                         android:layout_height="match_parent"
                         android:id="@+id/jacky_text2"
                         android:textColor="@color/text_white"
-                        android:textSize="18sp"
+                        android:textSize="14dp"
                         />
                 </LinearLayout>
 
@@ -310,9 +310,8 @@
 
                         <com.dearjacky.RoundedQuickContactBadge
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_height="70dp"
                             android:id="@+id/quickContactBadge"
-                            android:layout_weight=".6"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp" />
 
@@ -328,13 +327,13 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight=".2" >
+                        android:layout_weight=".2"
+                        android:weightSum="1">
 
                         <com.dearjacky.RoundedQuickContactBadge
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_height="70dp"
                             android:id="@+id/quickContactBadge2"
-                            android:layout_weight=".6"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp" />
 
@@ -354,9 +353,8 @@
 
                         <com.dearjacky.RoundedQuickContactBadge
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_height="70dp"
                             android:id="@+id/quickContactBadge3"
-                            android:layout_weight=".6"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp" />
 
@@ -376,9 +374,8 @@
 
                         <com.dearjacky.RoundedQuickContactBadge
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_height="70dp"
                             android:id="@+id/quickContactBadge4"
-                            android:layout_weight=".6"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp" />
 
