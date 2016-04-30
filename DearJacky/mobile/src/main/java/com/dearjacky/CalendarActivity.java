@@ -1,5 +1,8 @@
 package com.dearjacky;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -102,6 +105,22 @@ public class CalendarActivity extends AppCompatActivity {
         };
 
         caldroidFragment.setCaldroidListener(listener);
+
+
+        //AlarmManager
+        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        System.out.println("meow1");
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        int requestCode = 0;
+        PendingIntent pendIntent = PendingIntent.getBroadcast(getApplicationContext(), requestCode, intent, 0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.SECOND, 10);
+        long interval = 60 * 1000;
+        System.out.println("meow2");
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendIntent);
+        System.out.println("meow3");
+
     }
 
 
