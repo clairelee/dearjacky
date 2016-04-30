@@ -1,12 +1,16 @@
 package com.dearjacky;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +20,7 @@ import android.widget.CalendarView;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,6 +39,13 @@ public class CalendarActivity extends AppCompatActivity {
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
 
         dbHelper = new SensorTagDBHelper(getBaseContext());
+
+        //
+        String dbname = "260ProjectDB.db";
+        File dbpath = getBaseContext().getDatabasePath(dbname);
+        System.out.println("dbpath: " + dbpath.toString());
+        //
+
         Typewriter jackyText = (Typewriter) findViewById(R.id.jacky_text);
         jackyText.setCharacterDelay(50);
         jackyText.animateText("Seems like this week was rough. If you tap here, I have some suggestions that might cheer you up!");
@@ -55,28 +67,17 @@ public class CalendarActivity extends AppCompatActivity {
         t.replace(R.id.calendar, caldroidFragment);
         t.commit();
 
-        for(int i=1; i<=30; i++){
-//            int j = (int) Math.floor(Math.random() * 4);
-//            int colorId;
-//            switch(j){
-//                case 0: colorId = R.color.colorAngry;
-//                    break;
-//                case 1: colorId = R.color.colorCalm;
-//                    break;
-//                case 2: colorId = R.color.colorDepressed;
-//                    break;
-//                case 3: colorId = R.color.colorExcited;
-//                    break;
-//                default:colorId = R.color.colorBlack;
-//                    break;
-//            }
-
-            Calendar myCalendar = new GregorianCalendar(2016, 3, i);
-            Date myDate = myCalendar.getTime();
-            myCalendar.add(Calendar.DATE, 1);
-            Date myNextDate = myCalendar.getTime();
+        Calendar myCalendar = new GregorianCalendar(2016, 3, 1);
+        Calendar myCalendar1 = new GregorianCalendar(2016, 3, 1);
+        Calendar myCalendar2 = new GregorianCalendar(2016, 3, 2);
+        for(int i=0; i<60; i++){
+            //Calendar myCalendar = new GregorianCalendar(2016, 3, i);
+            myCalendar1.add(Calendar.DATE, 1);
+            Date myDate1 = myCalendar1.getTime();
+            myCalendar2.add(Calendar.DATE, 1);
+            Date myDate2 = myCalendar2.getTime();
             int colorId = 0;
-            List<DataPointJacky> myEventList= dbHelper.getTableOneDataDuringPeriod(myDate, myNextDate);
+            List<DataPointJacky> myEventList= dbHelper.getTableOneDataDuringPeriod(myDate1, myDate2);
             int numHappy = 0;
             int numOk = 0;
             int numSad = 0;
@@ -88,14 +89,15 @@ public class CalendarActivity extends AppCompatActivity {
                 if(ele.mood.equals("sad")) numSad++;
                 if(ele.mood.equals("angry")) numAngry++;
             }
-            if(numHappy == 0 && numOk == 0 && numSad == 0 && numAngry == 0) colorId = R.color.colorBlack;
+            if(numHappy == 0 && numOk == 0 && numSad == 0 && numAngry == 0) colorId = R.color.text_white;
             else if(numHappy == Math.max(Math.max(numHappy, numOk), Math.max(numSad, numAngry))) colorId = R.color.colorExcited;
             else if(numOk == Math.max(Math.max(numHappy, numOk), Math.max(numSad, numAngry))) colorId = R.color.colorCalm;
             else if(numSad == Math.max(Math.max(numHappy, numOk), Math.max(numSad, numAngry))) colorId = R.color.colorDepressed;
             else if(numAngry == Math.max(Math.max(numHappy, numOk), Math.max(numSad, numAngry))) colorId = R.color.colorAngry;
             ColorDrawable cd = new ColorDrawable(ContextCompat.getColor(getBaseContext(), colorId));
-            caldroidFragment.setBackgroundDrawableForDate(cd, myDate);
-            System.out.println("meowmeowmeowmeowmeow");
+            caldroidFragment.setBackgroundDrawableForDate(cd, myDate1);
+            //System.out.println("myCalendar1: " + myCalendar1.getTime());
+            //System.out.println("myCalendar2: " + myCalendar2.getTime());
         }
         caldroidFragment.refreshView();
 
@@ -109,6 +111,42 @@ public class CalendarActivity extends AppCompatActivity {
         };
         caldroidFragment.setCaldroidListener(listener);
 
+        verifyStoragePermissions(this);
+
+//        File f=new File("/data/user/0/com.dearjacky/databases/260ProjectDB.db");
+//        FileInputStream fis=null;
+//        FileOutputStream fos=null;
+//
+//        try
+//        {
+//            fis=new FileInputStream(f);
+//            fos=new FileOutputStream("/mnt/sdcard/db_dump.db");
+//            while(true)
+//            {
+//                int i=fis.read();
+//                if(i!=-1)
+//                {fos.write(i);}
+//                else
+//                {break;}
+//            }
+//            fos.flush();
+//            Toast.makeText(this, "DB dump OK", Toast.LENGTH_LONG).show();
+//        }
+//        catch(Exception e)
+//        {
+//            e.printStackTrace();
+//            Toast.makeText(this, "DB dump ERROR", Toast.LENGTH_LONG).show();
+//        }
+//        finally
+//        {
+//            try
+//            {
+//                fos.close();
+//                fis.close();
+//            }
+//            catch(IOException ioe)
+//            {}
+//        }
 
         //AlarmManager
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -134,5 +172,31 @@ public class CalendarActivity extends AppCompatActivity {
         });
     }
 
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+    }
 
 }
