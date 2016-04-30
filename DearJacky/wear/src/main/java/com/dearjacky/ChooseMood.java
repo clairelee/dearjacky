@@ -20,17 +20,59 @@ public class ChooseMood extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
-                Button button;
-                button = (Button)findViewById(R.id.button1);
+                //mTextView = (TextView) stub.findViewById(R.id.text);
+                //Button button;
+                //button = (Button)findViewById(R.id.button1);
+                Button buttonHappy = (Button)findViewById(R.id.mood_happy);
+                Button buttonOk = (Button)findViewById(R.id.mood_ok);
+                Button buttonSad = (Button)findViewById(R.id.mood_sad);
+                Button buttonAngry = (Button)findViewById(R.id.mood_angry);
 
-                button.setOnClickListener(new View.OnClickListener() {
+                buttonHappy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(getBaseContext(), SelectIntensity.class);
+                        i.putExtra("mood", "happy");
                         startActivity(i);
                     }
                 });
+
+                buttonOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getBaseContext(), SelectIntensity.class);
+                        i.putExtra("mood", "ok");
+                        startActivity(i);
+                    }
+                });
+
+                buttonSad.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getBaseContext(), SelectIntensity.class);
+                        i.putExtra("mood", "sad");
+                        startActivity(i);
+                    }
+                });
+
+                buttonAngry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getBaseContext(), SelectIntensity.class);
+                        i.putExtra("mood", "angry");
+                        startActivity(i);
+                    }
+                });
+
+
+
+//                button.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent i = new Intent(getBaseContext(), SelectIntensity.class);
+//                        startActivity(i);
+//                    }
+//                });
             }
         });
 

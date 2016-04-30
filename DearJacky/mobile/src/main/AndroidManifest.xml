@@ -29,6 +29,8 @@
         <activity android:name=".EditResponseActivity" />
         <activity android:name=".RespondActivity" />
         <activity android:name=".SettingsActivity"></activity>
+        <service android:name=".NLPService" />
+
     </application>
 
 </manifest>

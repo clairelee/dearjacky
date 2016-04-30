@@ -7,11 +7,35 @@
     tools:deviceIds="wear_round"
     android:background="@drawable/notes">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Say something..."
+        android:id="@+id/input_text"
+        android:textColor="#aaaaaa"/>
+
     <Button
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:id="@+id/button3"
-        android:background="@android:color/transparent">
-    </Button>
+        android:layout_below="@+id/input_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="record"
+        android:background="#aaaaaa"
+        android:id="@+id/record_button"/>
+
+    <Button
+        android:layout_below="@id/record_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel"
+        android:background="#aaaaaa"
+        android:id="@+id/cancel_button" />
+
+    <Button
+        android:layout_below="@id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="confirm"
+        android:background="#aaaaaa"
+        android:id="@+id/confirm_button" />
 
 </RelativeLayout>

@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ChooseMood"
-    tools:deviceIds="wear_square">
+    tools:deviceIds="wear_square"
+    android:background="@drawable/mood">
 
-    <TextView
-        android:id="@+id/text"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_square" />
-</LinearLayout>
+        android:background="#aaaaaa"
+        android:text="happy"
+        android:id="@+id/mood_happy"/>
+
+    <Button
+        android:layout_below="@+id/mood_happy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:text="ok"
+        android:id="@+id/mood_ok"/>
+
+    <Button
+        android:layout_toRightOf="@+id/mood_happy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:text="sad"
+        android:id="@+id/mood_sad"/>
+
+    <Button
+        android:layout_below="@+id/mood_sad"
+        android:layout_toRightOf="@+id/mood_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:text="angry"
+        android:id="@+id/mood_angry"/>
+
+</RelativeLayout>

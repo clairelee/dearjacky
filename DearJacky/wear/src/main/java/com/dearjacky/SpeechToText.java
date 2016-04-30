@@ -31,8 +31,8 @@ public class SpeechToText extends WearableActivity {
         setAmbientEnabled();
 
 
-//        txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
-//        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+        //txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
+        //btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
 
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {

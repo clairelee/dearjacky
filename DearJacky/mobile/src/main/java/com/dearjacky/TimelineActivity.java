@@ -13,6 +13,7 @@ import com.alorma.timeline.TimelineView;
 
 import java.util.ArrayList;
 
+
 public class TimelineActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
