@@ -41,9 +41,9 @@
                 <com.dearjacky.Typewriter
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/event_name"
+                    android:id="@+id/jacky_text"
                     android:textColor="@color/text_white"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:layout_margin="8dp" />
             </LinearLayout>
 
