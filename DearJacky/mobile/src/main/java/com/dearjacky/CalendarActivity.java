@@ -1,66 +1,96 @@
 package com.dearjacky;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.CalendarView;
+
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class CalendarActivity extends AppCompatActivity {
 
+    CalendarView calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_calendar);
-
+        android.support.v7.app.ActionBar a = getSupportActionBar();
+        a.setTitle("Jacky");
+        a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
 
 //        Start App on wear
-        Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
-//        sendIntent.putExtra("zip", repArray.toString());
-//        Log.d("T", "message length: " + repArray.toString().length());
-//        Log.d("T", "message "+ repArray.toString());
-
-        startService(sendIntent);
-
-        // Set Action Bar color
-        android.support.v7.app.ActionBar a = getSupportActionBar();
-        a.hide();
-        //a.setTitle("Jacky");
-        //ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
-        //a.setBackgroundDrawable(colorDrawable);
+        //Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
+        //startService(sendIntent);
 
 
-        Button button, button2, button3;
-        button = (Button)findViewById(R.id.button);
-        button2 = (Button)findViewById(R.id.button2);
-        button3 = (Button)findViewById(R.id.button3);
+        // Caldroid Calendar stuff:
+        final CaldroidFragment caldroidFragment = new CaldroidFragment();
+        Bundle args = new Bundle();
+        Calendar cal = Calendar.getInstance();
+        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+        caldroidFragment.setArguments(args);
 
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), SettingsActivity.class);
-                startActivity(i);
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.calendar, caldroidFragment);
+        t.commit();
+
+        for(int i=1; i<=30; i++){
+            int j = (int) Math.floor(Math.random() * 4);
+            int colorId;
+            switch(j){
+                case 0: colorId = R.color.colorAngry;
+                    break;
+                case 1: colorId = R.color.colorCalm;
+                    break;
+                case 2: colorId = R.color.colorDepressed;
+                    break;
+                case 3: colorId = R.color.colorExcited;
+                    break;
+                default:colorId = R.color.colorBlack;
+                    break;
             }
-        });
+            Calendar myCalendar = new GregorianCalendar(2016, 3, i);
+            Date myDate = myCalendar.getTime();
+            ColorDrawable cd = new ColorDrawable(ContextCompat.getColor(getBaseContext(), colorId));
+            caldroidFragment.setBackgroundDrawableForDate(cd, myDate);
+        }
+        caldroidFragment.refreshView();
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        final CaldroidListener listener = new CaldroidListener() {
+
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), RespondActivity.class);
-                startActivity(i);
+            public void onSelectDate(Date date, View view) {
+                Intent intent = new Intent(getBaseContext(), TimelineActivity.class);
+                intent.putExtra("date", date);
+                startActivity(intent);
             }
-        });
 
-        button3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), TimelineActivity.class);
-                startActivity(i);
+            public void onCaldroidViewCreated() {
+                // Supply your own adapter to weekdayGridView (SUN, MON, etc)
+//                caldroidFragment.getWeekdayGridView().setAdapter(YOUR_ADAPTER);
+//
+//                Button leftButton = caldroidFragment.getLeftArrowButton();
+//                Button rightButton = caldroidFragment.getRightArrowButton();
+//                TextView textView = caldroidFragment.getMonthTitleTextView();
+
+                // Do customization here
             }
-        });
 
+        };
 
-
+        caldroidFragment.setCaldroidListener(listener);
     }
+
+
 }
