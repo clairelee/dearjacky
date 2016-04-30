@@ -186,8 +186,11 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
 
             if(tmpPoint.timestamp >= stamp1 && tmpPoint.timestamp <= stamp2)
                 resList.add(tmpPoint);
-        }
 
+            res.moveToNext();
+            System.out.println("tmpPoint: " + tmpPoint.mood);
+        }
+        System.out.println("list finishes");
         res.close();
 //        try {
 //            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
