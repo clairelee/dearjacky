@@ -11,14 +11,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -49,14 +47,14 @@ public class RespondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_respond);
-        ActionBar a = getSupportActionBar();
-        a.setTitle("Jacky");
-        a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
+        android.support.v7.app.ActionBar a = getSupportActionBar();
+        a.setTitle("Ask Jacky");
+        a.setBackgroundDrawable(new ColorDrawable( ContextCompat.getColor(this, R.color.colorPrimary)));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
         jackyText.setCharacterDelay(50);
         jackyText.animateText("Here are some things that have made you happy before!");
-        ListView list = (ListView) findViewById(R.id.activity_list);
 
         Typewriter jackyText2 = (Typewriter) findViewById(R.id.jacky_text2);
         jackyText2.setInitialDelay(1500);
@@ -263,5 +261,21 @@ public class RespondActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getParentActivityIntent() == null) {
+                    Log.i("T", "You have forgotten to specify the parentActivityName in the AndroidManifest!");
+                    onBackPressed();
+                } else {
+                    NavUtils.navigateUpFromSameTask(this);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -34,6 +34,7 @@
             android:elevation="-1dp"
             android:id="@+id/cv"
             android:layout_weight="3"
+            app:cardElevation="0dp"
             android:layout_marginTop="5dp"
             android:minHeight="60dp">
             <LinearLayout
@@ -44,10 +45,10 @@
 
                 <com.dearjacky.Typewriter
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/event_name"
                     android:textColor="@color/text_white"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     />
             </LinearLayout>
 

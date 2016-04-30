@@ -7,4 +7,5 @@
     <string name="title_activity_add_notes">AddNotes</string>
     <string name="title_activity_add_tags">AddTags</string>
     <string name="title_activity_confirmation">Confirmation</string>
+    <string name="title_activity_speechtotext">SpeechToText</string>
 </resources>

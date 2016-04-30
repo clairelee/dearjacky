@@ -296,8 +296,9 @@ public abstract class TimelineView extends ImageView {
     }
 
     private void drawTypeEnd(Canvas canvas) {
-        drawLine(canvas, rect.top, rect.centerY());
-        drawIndicator(canvas, paintIndicator, rect.centerX(), rect.centerY(), indicatorSize);
+        drawLine(canvas, rect.top, rect.top + 30);
+        int y = rect.top + (int) indicatorSize + 30;
+        drawIndicator(canvas, paintIndicator, rect.centerX(), y, indicatorSize);
         if (isDrawInternal()) {
             drawInternal(canvas);
         }
@@ -322,8 +323,8 @@ public abstract class TimelineView extends ImageView {
         } else if (timelineAlignment == ALIGNMENT_END) {
             centerY = (int) (rect.bottom - indicatorSize);
         }
-
-        drawIndicator(canvas, paintIndicator, rect.centerX(), centerY, indicatorSize);
+        int y = rect.top + (int) indicatorSize + 30;
+        drawIndicator(canvas, paintIndicator, rect.centerX(), y, indicatorSize);
         if (isDrawInternal()) {
             drawInternal(canvas, paintInternal, rect.centerX(), centerY,
                     indicatorSize - internalPadding);
@@ -340,8 +341,9 @@ public abstract class TimelineView extends ImageView {
     }
 
     private void drawTypeStart(Canvas canvas) {
-        drawLine(canvas, rect.centerY(), rect.bottom);
-        drawIndicator(canvas, paintIndicator, rect.centerX(), rect.centerY(), indicatorSize);
+        drawLine(canvas, rect.top + 30, rect.bottom);
+        int y = rect.top + (int) indicatorSize + 30;
+        drawIndicator(canvas, paintIndicator, rect.centerX(), y, indicatorSize);
 
         if (isDrawInternal()) {
             drawInternal(canvas);

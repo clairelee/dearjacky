@@ -1,15 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.dearjacky.SelectIntensity"
-    tools:deviceIds="wear_square">
+    tools:deviceIds="wear_square"
+    android:background="@drawable/intensity">
 
-    <TextView
-        android:id="@+id/text"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_square" />
-</LinearLayout>
+        android:background="#aaaaaa"
+        android:text="+"
+        android:id="@+id/add_value"/>
+
+    <Button
+        android:layout_below="@+id/add_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:text="-"
+        android:id="@+id/sub_value"/>
+    <TextView
+        android:layout_below="@+id/sub_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#aaaaaa"
+        android:text="3"
+        android:textSize="50dp"
+        android:id="@+id/value_text"/>
+
+    <Button
+        android:layout_toRightOf="@+id/add_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel"
+        android:background="#aaaaaa"
+        android:id="@+id/cancel_button" />
+    <Button
+        android:layout_toRightOf="@+id/sub_value"
+        android:layout_below="@id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="confirm"
+        android:background="#aaaaaa"
+        android:id="@+id/confirm_button" />
+
+
+
+</RelativeLayout>

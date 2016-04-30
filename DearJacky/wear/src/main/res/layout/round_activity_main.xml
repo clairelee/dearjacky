@@ -8,10 +8,35 @@
     android:background="@drawable/mood">
 
     <Button
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:id="@+id/button1"
-        android:background="@android:color/transparent">
-    </Button>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:text="happy"
+        android:id="@+id/mood_happy"/>
+
+    <Button
+        android:layout_below="@+id/mood_happy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:text="ok"
+        android:id="@+id/mood_ok"/>
+
+    <Button
+        android:layout_toRightOf="@+id/mood_happy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:text="sad"
+        android:id="@+id/mood_sad"/>
+
+    <Button
+        android:layout_below="@+id/mood_sad"
+        android:layout_toRightOf="@+id/mood_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:text="angry"
+        android:id="@+id/mood_angry"/>
 
 </RelativeLayout>

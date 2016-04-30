@@ -3,6 +3,7 @@
     package="com.dearjacky">
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -10,6 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.DeviceDefault">
+        <uses-library android:name="com.google.android.wearable" android:required="false" />
         <service android:name=".WatchToPhoneService" />
         <!-- Listeners are special services that need to be declared like below, as BIND_LISTENER -->
         <service
@@ -58,6 +60,15 @@
         <activity
             android:name=".Confirmation"
             android:label="@string/title_activity_confirmation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SpeechToText"
+            android:label="@string/title_activity_speechtotext">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
