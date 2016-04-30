@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class SelectIntensity extends Activity {
@@ -19,7 +20,6 @@ public class SelectIntensity extends Activity {
         setContentView(R.layout.activity_select_intensity);
         Intent oldIntent = getIntent();
         mMood = oldIntent.getExtras().getString("mood");
-        //Here we should set the background color.
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -35,6 +35,13 @@ public class SelectIntensity extends Activity {
 //                        startActivity(i);
 //                    }
 //                });
+                RelativeLayout layout = (RelativeLayout) stub.findViewById(R.id.relative_layout);
+                System.out.println(layout.equals(null));
+                if(mMood.equals("happy")) layout.setBackgroundResource(R.color.colorExcitedBackground);
+                if(mMood.equals("ok")) layout.setBackgroundResource(R.color.colorCalmBackground);
+                if(mMood.equals("sad")) layout.setBackgroundResource(R.color.colorDepressedBackground);
+                if(mMood.equals("angry")) layout.setBackgroundResource(R.color.colorAngryBackground);
+
                 final TextView valueText = (TextView) stub.findViewById(R.id.value_text);
                 Button addButton = (Button) stub.findViewById(R.id.add_value);
                 Button subButton = (Button) stub.findViewById(R.id.sub_value);

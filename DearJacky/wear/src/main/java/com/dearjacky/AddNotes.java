@@ -8,6 +8,7 @@ import android.support.wearable.view.WatchViewStub;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class AddNotes extends WearableActivity {
 
     private String mMood;
     private String mIntensity;
-    private String mNote;
+    private String mNote = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,13 @@ public class AddNotes extends WearableActivity {
 //                        startActivity(i);
 //                    }
 //                });
+                RelativeLayout layout = (RelativeLayout) stub.findViewById(R.id.relative_layout);
+                System.out.println(layout.equals(null));
+                if(mMood.equals("happy")) layout.setBackgroundResource(R.color.colorExcitedBackground);
+                if(mMood.equals("ok")) layout.setBackgroundResource(R.color.colorCalmBackground);
+                if(mMood.equals("sad")) layout.setBackgroundResource(R.color.colorDepressedBackground);
+                if(mMood.equals("angry")) layout.setBackgroundResource(R.color.colorAngryBackground);
+
                 txtSpeechInput = (TextView) stub.findViewById(R.id.input_text);
                 btnSpeak = (Button) stub.findViewById(R.id.record_button);
                 Button cancelButton = (Button) stub.findViewById(R.id.cancel_button);

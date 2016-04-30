@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Confirmation extends Activity {
@@ -36,6 +37,12 @@ public class Confirmation extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                // mTextView = (TextView) stub.findViewById(R.id.text);
+                RelativeLayout layout = (RelativeLayout) stub.findViewById(R.id.relative_layout);
+                System.out.println(layout.equals(null));
+                if(mMood.equals("happy")) layout.setBackgroundResource(R.color.colorExcitedBackground);
+                if(mMood.equals("ok")) layout.setBackgroundResource(R.color.colorCalmBackground);
+                if(mMood.equals("sad")) layout.setBackgroundResource(R.color.colorDepressedBackground);
+                if(mMood.equals("angry")) layout.setBackgroundResource(R.color.colorAngryBackground);
             }
         });
 

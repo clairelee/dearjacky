@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context="com.dearjacky.Confirmation"
     tools:deviceIds="wear_square"
+    android:id="@+id/relative_layout"
     android:background="@color/colorCalmBackground">
 
     <Button

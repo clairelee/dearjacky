@@ -6,6 +6,7 @@
     tools:context=".ChooseMood"
     tools:deviceIds="wear_square"
     android:orientation="vertical"
+    android:id="@+id/relative_layout"
     android:background="@drawable/mood_changer">
 
     <Button

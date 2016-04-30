@@ -6,6 +6,7 @@
     tools:context="com.dearjacky.SelectIntensity"
     tools:deviceIds="wear_square"
     android:orientation="vertical"
+    android:id="@+id/relative_layout"
     android:background="@color/colorCalmBackground">
 
     <android.support.wearable.view.WearableHeaderTextView
