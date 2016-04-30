@@ -31,6 +31,9 @@ public class CalendarActivity extends AppCompatActivity {
         //Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
         //startService(sendIntent);
 
+        Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
+        jackyText.setCharacterDelay(50);
+        jackyText.animateText("You've been down lately. Maybe you should watch some cat videos, or play with your cat.");
 
         // Caldroid Calendar stuff:
         final CaldroidFragment caldroidFragment = new CaldroidFragment();
@@ -39,7 +42,6 @@ public class CalendarActivity extends AppCompatActivity {
         args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
         args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         caldroidFragment.setArguments(args);
-
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar, caldroidFragment);
         t.commit();
@@ -67,28 +69,13 @@ public class CalendarActivity extends AppCompatActivity {
         caldroidFragment.refreshView();
 
         final CaldroidListener listener = new CaldroidListener() {
-
             @Override
             public void onSelectDate(Date date, View view) {
-                Intent intent = new Intent(getBaseContext(), TimelineActivity.class);
+                Intent intent = new Intent(getBaseContext(), EditResponseActivity.class);
                 intent.putExtra("date", date);
                 startActivity(intent);
             }
-
-            @Override
-            public void onCaldroidViewCreated() {
-                // Supply your own adapter to weekdayGridView (SUN, MON, etc)
-//                caldroidFragment.getWeekdayGridView().setAdapter(YOUR_ADAPTER);
-//
-//                Button leftButton = caldroidFragment.getLeftArrowButton();
-//                Button rightButton = caldroidFragment.getRightArrowButton();
-//                TextView textView = caldroidFragment.getMonthTitleTextView();
-
-                // Do customization here
-            }
-
         };
-
         caldroidFragment.setCaldroidListener(listener);
     }
 
