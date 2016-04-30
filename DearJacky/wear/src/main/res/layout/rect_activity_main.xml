@@ -3,41 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ChooseMood"
-    tools:deviceIds="wear_square"
-    android:background="@drawable/mood">
+    tools:deviceIds="wear_round"
+    android:background="@drawable/mood_changer">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#aaaaaa"
-        android:text="happy"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/excited"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:visibility="visible"
         android:id="@+id/mood_happy"/>
 
     <Button
-        android:layout_below="@+id/mood_happy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#aaaaaa"
-        android:text="ok"
-        android:id="@+id/mood_ok"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/happy"
+        android:id="@+id/mood_ok"
+        android:layout_margin="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"/>
 
     <Button
-        android:layout_toRightOf="@+id/mood_happy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#aaaaaa"
-        android:text="sad"
-        android:id="@+id/mood_sad"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/depressed"
+        android:id="@+id/mood_sad"
+        android:layout_margin="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"/>
 
     <Button
-        android:layout_below="@+id/mood_sad"
-        android:layout_toRightOf="@+id/mood_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#aaaaaa"
-        android:text="angry"
-        android:id="@+id/mood_angry"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/angry"
+        android:id="@+id/mood_angry"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
