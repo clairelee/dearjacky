@@ -1,7 +1,9 @@
 package com.dearjacky;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -11,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -45,81 +48,90 @@ public class RespondActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_respond);
-        android.support.v7.app.ActionBar a = getSupportActionBar();
-        a.setTitle("Ask Jacky");
-        a.setBackgroundDrawable(new ColorDrawable( ContextCompat.getColor(this, R.color.colorPrimary)));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    1);
+        } else {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_respond);
+            android.support.v7.app.ActionBar a = getSupportActionBar();
+            a.setTitle("Ask Jacky");
+            a.setBackgroundDrawable(new ColorDrawable( ContextCompat.getColor(this, R.color.colorPrimary)));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
-        jackyText.setCharacterDelay(50);
-        jackyText.animateText("Here are some things that have made you happy before!");
+            Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
+            jackyText.setCharacterDelay(50);
+            jackyText.animateText("Here are some things that have made you happy before!");
 
-        Typewriter jackyText2 = (Typewriter) findViewById(R.id.jacky_text2);
-        jackyText2.setInitialDelay(1500);
-        jackyText2.setCharacterDelay(50);
-        jackyText2.animateText("Maybe talking to somebody about it will help?");
-        RoundedQuickContactBadge badge1 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge);
-        RoundedQuickContactBadge badge2 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge2);
-        RoundedQuickContactBadge badge3 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge3);
-        RoundedQuickContactBadge badge4 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge4);
+            Typewriter jackyText2 = (Typewriter) findViewById(R.id.jacky_text2);
+            jackyText2.setInitialDelay(1500);
+            jackyText2.setCharacterDelay(50);
+            jackyText2.animateText("Maybe talking to somebody about it will help?");
+            RoundedQuickContactBadge badge1 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge);
 
-        TextView name1 = (TextView) findViewById(R.id.textView2);
-        TextView name2 = (TextView) findViewById(R.id.textView3);
-        TextView name3 = (TextView) findViewById(R.id.textView4);
-        TextView name4 = (TextView) findViewById(R.id.textView5);
-        RoundedQuickContactBadge[] badges = {badge1, badge2, badge3, badge4};
-        TextView[] names = {name1, name2, name3, name4};
-        Map h = getFavoriteContacts();
-        List keys = Arrays.asList(h.keySet().toArray());
-        ArrayList<Integer> intList = new ArrayList<Integer>();
-        for (int i=1; i<keys.size(); i++) {
-            intList.add(new Integer(i));
-        }
-        Collections.shuffle(intList);
-        if(intList.size() == 0){
-            name1.setText("Go to your contacts app and star some contacts to see people here!");
-        }
-        for(int i = 0; i < 4; i++){
-            names[i].setText("");
-        }
+            RoundedQuickContactBadge badge2 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge2);
+            RoundedQuickContactBadge badge3 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge3);
+            RoundedQuickContactBadge badge4 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge4);
 
-        for(int i = 0; i < Math.min(4,intList.size()); i++){
-            int index = intList.get(i);
-            String name = ((String)keys.get(index));
-            String contactUri = ((String[])h.get(name))[0];
-            String thumbUri = ((String[])h.get(name))[1];
-            Uri contact = Uri.parse(contactUri);
-            badges[i].assignContactUri(contact);
-            if(thumbUri != null && !thumbUri.equals("")){
-                Bitmap mThumbnail =
-                        loadContactPhotoThumbnail(thumbUri);
-                badges[i].setImageBitmap(mThumbnail);
-            }else{
-                badges[i].setImageDrawable(getResources().getDrawable(R.drawable.profile_default));
+            TextView name1 = (TextView) findViewById(R.id.textView2);
+            TextView name2 = (TextView) findViewById(R.id.textView3);
+            TextView name3 = (TextView) findViewById(R.id.textView4);
+            TextView name4 = (TextView) findViewById(R.id.textView5);
+            RoundedQuickContactBadge[] badges = {badge1, badge2, badge3, badge4};
+            TextView[] names = {name1, name2, name3, name4};
+            Map h = getFavoriteContacts();
+            List keys = Arrays.asList(h.keySet().toArray());
+            ArrayList<Integer> intList = new ArrayList<Integer>();
+            for (int i=1; i<keys.size(); i++) {
+                intList.add(new Integer(i));
+            }
+            Collections.shuffle(intList);
+            if(intList.size() == 0){
+                name1.setText("Go to your contacts app and star some contacts to see people here!");
+            }
+            for(int i = 0; i < 4; i++){
+                names[i].setText("");
             }
 
+            for(int i = 0; i < Math.min(4,intList.size()); i++){
+                int index = intList.get(i);
+                String name = ((String)keys.get(index));
+                String contactUri = ((String[])h.get(name))[0];
+                String thumbUri = ((String[])h.get(name))[1];
+                Uri contact = Uri.parse(contactUri);
+                badges[i].assignContactUri(contact);
+                if(thumbUri != null && !thumbUri.equals("")){
+                    Bitmap mThumbnail =
+                            loadContactPhotoThumbnail(thumbUri);
+                    badges[i].setImageBitmap(mThumbnail);
+                }else{
+                    badges[i].setImageDrawable(getResources().getDrawable(R.drawable.profile_default));
+                }
 
-            names[i].setText(name.split(" ")[0]);
 
+                names[i].setText(name.split(" ")[0]);
+
+            }
+
+    //        ListView list2 = (ListView) findViewById(R.id.list3);
+    //
+    //        ArrayList<Events> items = new ArrayList<>();
+    //        items.add(new Events("First Event", TimelineView.TYPE_START, (int) (Math.random() * 4)));
+    //        for (int i = 0; i < 20; i++) {
+    //            items.add(new Events(String.format("Middle Event", i + 1),
+    //                    TimelineView.TYPE_MIDDLE, (int) (Math.random() * 4)));
+    //        }
+    //        items.add(new Events("Last Event", TimelineView.TYPE_END, (int) (Math.random() * 4)));
+    //        list.setAdapter(new EventsAdapter(this, items));
+    //
+    //        list2.setAdapter(new EventsAdapter(this, items));
+            // ATTENTION: This was auto-generated to implement the App Indexing API.
+            // See https://g.co/AppIndexing/AndroidStudio for more information.
+            client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         }
-
-//        ListView list2 = (ListView) findViewById(R.id.list3);
-//
-//        ArrayList<Events> items = new ArrayList<>();
-//        items.add(new Events("First Event", TimelineView.TYPE_START, (int) (Math.random() * 4)));
-//        for (int i = 0; i < 20; i++) {
-//            items.add(new Events(String.format("Middle Event", i + 1),
-//                    TimelineView.TYPE_MIDDLE, (int) (Math.random() * 4)));
-//        }
-//        items.add(new Events("Last Event", TimelineView.TYPE_END, (int) (Math.random() * 4)));
-//        list.setAdapter(new EventsAdapter(this, items));
-//
-//        list2.setAdapter(new EventsAdapter(this, items));
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     Map<String, String[]> getFavoriteContacts() {

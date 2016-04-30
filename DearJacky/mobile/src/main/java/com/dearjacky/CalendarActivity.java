@@ -32,7 +32,7 @@ public class CalendarActivity extends AppCompatActivity {
         a.setTitle("Jacky");
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
 
-        Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
+        Typewriter jackyText = (Typewriter) findViewById(R.id.jacky_text);
         jackyText.setCharacterDelay(50);
         jackyText.animateText("Seems like this week was rough. If you tap here, I have some suggestions that might cheer you up!");
         jackyText.setOnClickListener(new View.OnClickListener() {
@@ -41,14 +41,6 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        LinearLayout jackyArea = (LinearLayout) findViewById(R.id.)
-//        Start App on wear
-        //Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
-        //startService(sendIntent);
-
-        Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
-        jackyText.setCharacterDelay(50);
-        jackyText.animateText("You've been down lately. Maybe you should watch some cat videos, or play with your cat.");
 
         // Caldroid Calendar stuff:
         final CaldroidFragment caldroidFragment = new CaldroidFragment();
