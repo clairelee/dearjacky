@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -78,7 +79,7 @@ public class CalendarActivity extends AppCompatActivity {
         final CaldroidListener listener = new CaldroidListener() {
             @Override
             public void onSelectDate(Date date, View view) {
-                Intent intent = new Intent(getBaseContext(), EditResponseActivity.class);
+                Intent intent = new Intent(getBaseContext(), TimelineActivity.class);
                 intent.putExtra("date", date);
                 startActivity(intent);
             }
@@ -100,6 +101,14 @@ public class CalendarActivity extends AppCompatActivity {
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendIntent);
         System.out.println("meow3");
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), EditResponseActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

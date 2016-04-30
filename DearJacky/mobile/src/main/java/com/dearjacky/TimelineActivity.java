@@ -1,12 +1,15 @@
 package com.dearjacky;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.alorma.timeline.TimelineView;
@@ -53,6 +56,15 @@ public class TimelineActivity extends AppCompatActivity {
 //        timeline3_align_bottom.setIndicatorSize(
 //            getResources().getDimensionPixelOffset(R.dimen.large_timeline_2));
 //        timeline3_align_bottom.setTimelineStyle(TimelineView.STYLE_LINEAR);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), EditResponseActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
