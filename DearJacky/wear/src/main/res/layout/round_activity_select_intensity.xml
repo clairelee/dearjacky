@@ -5,44 +5,63 @@
     android:layout_height="match_parent"
     tools:context="com.dearjacky.SelectIntensity"
     tools:deviceIds="wear_round"
-    android:background="@drawable/intensity">
+    android:background="@color/colorCalmBackground">
 
-    <Button
+    <android.support.wearable.view.WearableHeaderTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#aaaaaa"
+        android:textColor="@color/text_white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        android:text="Intensity"/>
+
+    <Button
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/value_text"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/plus"
         android:text="+"
         android:id="@+id/add_value"/>
 
     <Button
-        android:layout_below="@+id/add_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#aaaaaa"
-        android:text="-"
+        android:layout_toLeftOf="@+id/value_text"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/minus"
         android:id="@+id/sub_value"/>
     <TextView
-        android:layout_below="@+id/sub_value"
+        android:layout_marginTop="45dp"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#aaaaaa"
+        android:textColor="@color/text_white"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:text="3"
-        android:textSize="50dp"
+        android:textSize="60sp"
         android:id="@+id/value_text"/>
 
     <Button
-        android:layout_toRightOf="@+id/add_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="cancel"
-        android:background="#aaaaaa"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/cancel"
         android:id="@+id/cancel_button" />
     <Button
-        android:layout_toRightOf="@+id/sub_value"
-        android:layout_below="@id/cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="confirm"
-        android:background="#aaaaaa"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/confirm"
         android:id="@+id/confirm_button" />
 </RelativeLayout>

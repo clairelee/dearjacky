@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChooseMood"
-    tools:deviceIds="wear_round"
+    tools:deviceIds="wear_square"
     android:background="@drawable/mood_changer">
 
     <Button
