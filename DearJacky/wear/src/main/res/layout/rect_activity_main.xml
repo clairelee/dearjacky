@@ -13,7 +13,7 @@
         android:background="@drawable/excited"
         android:gravity="center_vertical|center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
+        android:layout_margin="28dp"
         android:visibility="visible"
         android:id="@+id/mood_happy"/>
 
@@ -22,7 +22,7 @@
         android:layout_height="60dp"
         android:background="@drawable/happy"
         android:id="@+id/mood_ok"
-        android:layout_margin="10dp"
+        android:layout_margin="24dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"/>
 
@@ -31,7 +31,7 @@
         android:layout_height="60dp"
         android:background="@drawable/depressed"
         android:id="@+id/mood_sad"
-        android:layout_margin="10dp"
+        android:layout_margin="24dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"/>
 
@@ -40,7 +40,7 @@
         android:layout_height="60dp"
         android:background="@drawable/angry"
         android:id="@+id/mood_angry"
-        android:layout_margin="10dp"
+        android:layout_margin="28dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>
 
