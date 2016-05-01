@@ -22,7 +22,6 @@ import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -74,7 +73,7 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         dbHelper = new SensorTagDBHelper(getBaseContext());
-
+        //dbHelper.clearAll();
         //
 
         //

@@ -51,12 +51,12 @@ import java.util.List;
  * Created by yanrongli on 3/2/16.
  */
 public class SensorTagDBHelper extends SQLiteOpenHelper {
-    public static String DATABASE_NAME = "260ProjectDB.db";
+    public static String DATABASE_NAME = "my260ProjectDB.db";
     public static String TABLE1_NAME = "details";
     public static String TABLE2_NAME = "tags";
     public static String TABLE3_NAME = "keywords";
     public static String TABLE1_COL1 = "ID";
-    public static String TABLE1_COL2 = "TIMESTAMP";
+    public static String TABLE1_COL2 = "MYTIMESTAMP";
     public static String TABLE1_COL3 = "MOOD";
     public static String TABLE1_COL4 = "VALUE";
     public static String TABLE1_COL5 = "TAG";
@@ -76,7 +76,7 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE1_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,TIMESTAMP TEXT,MOOD TEXT,VALUE INTEGER,TAG TEXT,DETAIL TEXT,PROCESSED TINYINT)");
+        db.execSQL("CREATE TABLE " + TABLE1_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,MYTIMESTAMP TEXT,MOOD TEXT,VALUE INTEGER,TAG TEXT,DETAIL TEXT,PROCESSED TINYINT)");
         db.execSQL("CREATE TABLE " + TABLE2_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,TAG TEXT)");
         db.execSQL("CREATE TABLE " + TABLE3_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,MOOD TEXT,KEYWORDS TEXT,NUM INTEGER)");
     }
@@ -110,7 +110,7 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
         contentValues.put(TABLE1_COL6, detail);
         contentValues.put(TABLE1_COL7, processed);
 
-        Cursor cur = db.rawQuery("SELECT COUNT(*) FROM "+TABLE1_NAME+" WHERE TIMESTAMP = '"+timestamp+"'", null);
+        Cursor cur = db.rawQuery("SELECT COUNT(*) FROM "+TABLE1_NAME+" WHERE MYTIMESTAMP == '"+timestamp+"'", null);
         cur.moveToFirst();
         int count = cur.getInt(0);
         cur.close();
@@ -125,7 +125,7 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
         }
         else
         {
-            Cursor cur2 = db.rawQuery("DELETE FROM "+TABLE1_NAME+" WHERE TIMESTAMP = '"+timestamp+"'", null);
+            Cursor cur2 = db.rawQuery("DELETE FROM "+TABLE1_NAME+" WHERE MYTIMESTAMP == '"+timestamp+"'", null);
             long result = db.insert(TABLE1_NAME, null, contentValues);
             if (result == -1)
                 return false;
@@ -155,7 +155,7 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
     */
     public boolean insertTableThreeData(String mood, String keywords) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cur = db.rawQuery("SELECT COUNT(*) FROM "+TABLE3_NAME+" WHERE MOOD = '"+mood+"' AND KEYWORDS = '"+keywords+"'", null);
+        Cursor cur = db.rawQuery("SELECT COUNT(*) FROM "+TABLE3_NAME+" WHERE MOOD == '"+mood+"' AND KEYWORDS == '"+keywords+"'", null);
         cur.moveToFirst();
         int count = cur.getInt(0);
         cur.close();
@@ -173,7 +173,7 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
         }
         else
         {
-            Cursor cur2 = db.rawQuery("SELECT * FROM "+TABLE3_NAME+" WHERE MOOD = '"+mood+"' AND KEYWORDS = '"+keywords+"'", null);
+            Cursor cur2 = db.rawQuery("SELECT * FROM "+TABLE3_NAME+" WHERE MOOD == '"+mood+"' AND KEYWORDS == '"+keywords+"'", null);
             cur2.moveToFirst();
             int count2 = cur2.getInt(3);
             System.out.println("Updated Succesfully!");
@@ -265,7 +265,7 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
 
     public DataPointJacky getSelectedTableOneData(String timestamp) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE1_NAME + " WHERE TIMESTAMP == '"+timestamp+"'", null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE1_NAME + " WHERE MYTIMESTAMP == '"+timestamp+"'", null);
         DataPointJacky tmpPoint = new DataPointJacky();
         tmpPoint.timestamp = res.getLong(res.getColumnIndex(TABLE1_COL2));
         tmpPoint.mood = res.getString(res.getColumnIndex(TABLE1_COL3));
@@ -329,7 +329,7 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
         contentValues.put(TABLE1_COL5, tag);
         contentValues.put(TABLE1_COL6, detail);
         contentValues.put(TABLE1_COL7, processed);
-        db.update(TABLE1_NAME, contentValues, "TIMESTAMP = ?", new String[] {timestamp});
+        db.update(TABLE1_NAME, contentValues, "MYTIMESTAMP = ?", new String[] {timestamp});
         return true;
     }
 
@@ -346,7 +346,7 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
 
     public Integer deleteTableOneData(String timestamp) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE1_NAME, "TIMESTAMP = ?", new String[] {timestamp});
+        return db.delete(TABLE1_NAME, "MYTIMESTAMP = ?", new String[] {timestamp});
     }
 
     public Integer deleteTableTwoData(String tag) {

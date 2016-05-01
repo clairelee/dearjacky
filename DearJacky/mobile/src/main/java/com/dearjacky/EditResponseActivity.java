@@ -252,7 +252,11 @@ public class EditResponseActivity extends AppCompatActivity {
                     dbHelper = new SensorTagDBHelper(getBaseContext());
                     if (getSupportActionBar().getTitle().equals("New Response"))
                         timestamp = myCalendar.getTimeInMillis();
-                    dbHelper.insertTableOneData(String.valueOf(timestamp), emotion, Integer.parseInt(user_intensity), "", user_notes, 0);
+                    System.out.println(timestamp);
+                    if (getSupportActionBar().getTitle().equals("New Response"))
+                        dbHelper.insertTableOneData(String.valueOf(timestamp), emotion, Integer.parseInt(user_intensity), "", user_notes, 0);
+                    else
+                        dbHelper.updateTableOneData(String.valueOf(timestamp), emotion, Integer.parseInt(user_intensity), "", user_notes, 0);
                     Toast.makeText(EditResponseActivity.this, "Response Saved! " + user_notes + " " + emotion + " " + user_intensity, Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }

@@ -93,8 +93,8 @@ class DataPointAdapter extends ArrayAdapter<DataPointJacky> {
 //            viewHolder.number.setText(""+day);
 //
 //        }
-        System.out.println(listSize);
-        System.out.println(position);
+        //System.out.println(listSize);
+        //System.out.println(position);
         if(position == 0)
             viewHolder.timeline.setTimelineType(TimelineView.TYPE_START);
         else if(position < listSize - 1)
