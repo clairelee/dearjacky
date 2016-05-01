@@ -40,7 +40,8 @@
         <receiver android:name=".AlarmReceiver" />
 
         <activity android:name=".Debug"
-            android:label="Dear Jacky Debug Menu">
+            android:label="Dear Jacky Debug Menu"
+            android:taskAffinity="com.dearjacky.debug">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
