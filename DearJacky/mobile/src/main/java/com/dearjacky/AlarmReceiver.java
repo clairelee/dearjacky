@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "alarm", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "alarm", Toast.LENGTH_SHORT).show();
         System.out.println("meow4");
         Intent watchIntent = new Intent(context, PhoneToWatchService.class);
         context.startService(watchIntent);

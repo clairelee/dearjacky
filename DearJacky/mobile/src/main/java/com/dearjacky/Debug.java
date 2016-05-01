@@ -52,7 +52,8 @@ public class Debug extends AppCompatActivity {
 
         send_notification.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                Do stuff here
+                Intent watchIntent = new Intent(v.getContext(), PhoneToWatchService.class);
+                v.getContext().startService(watchIntent);
                 Toast.makeText(getApplicationContext(), "Successfully sent notification", Toast.LENGTH_LONG).show();
 
             }

@@ -150,39 +150,39 @@ public class CalendarActivity extends AppCompatActivity {
         verifyStoragePermissions(this);
 
 
-        FileInputStream fis=null;
-        FileOutputStream fos=null;
-
-        try
-        {
-            fis=new FileInputStream(dbpath);
-            fos=new FileOutputStream("/mnt/sdcard/db_dump.db");
-            while(true)
-            {
-                int i=fis.read();
-                if(i!=-1)
-                {fos.write(i);}
-                else
-                {break;}
-            }
-            fos.flush();
-            Toast.makeText(this, "DB dump OK", Toast.LENGTH_LONG).show();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            Toast.makeText(this, "DB dump ERROR", Toast.LENGTH_LONG).show();
-        }
-        finally
-        {
-            try
-            {
-                fos.close();
-                fis.close();
-            }
-            catch(IOException ioe)
-            {}
-        }
+//        FileInputStream fis=null;
+//        FileOutputStream fos=null;
+//
+//        try
+//        {
+//            fis=new FileInputStream(dbpath);
+//            fos=new FileOutputStream("/mnt/sdcard/db_dump.db");
+//            while(true)
+//            {
+//                int i=fis.read();
+//                if(i!=-1)
+//                {fos.write(i);}
+//                else
+//                {break;}
+//            }
+//            fos.flush();
+//            Toast.makeText(this, "DB dump OK", Toast.LENGTH_LONG).show();
+//        }
+//        catch(Exception e)
+//        {
+//            e.printStackTrace();
+//            Toast.makeText(this, "DB dump ERROR", Toast.LENGTH_LONG).show();
+//        }
+//        finally
+//        {
+//            try
+//            {
+//                fos.close();
+//                fis.close();
+//            }
+//            catch(IOException ioe)
+//            {}
+//        }
 
         //AlarmManager
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
