@@ -1,7 +1,6 @@
 package com.dearjacky;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
@@ -16,14 +15,11 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.alorma.timeline.TimelineView;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -37,7 +33,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class RespondActivity extends AppCompatActivity {
     /**
@@ -45,6 +40,7 @@ public class RespondActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private SensorTagDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +53,28 @@ public class RespondActivity extends AppCompatActivity {
         } else {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_respond);
+            dbHelper = new SensorTagDBHelper(getBaseContext());
             android.support.v7.app.ActionBar a = getSupportActionBar();
             a.setTitle("Ask Jacky");
-            a.setBackgroundDrawable(new ColorDrawable( ContextCompat.getColor(this, R.color.colorPrimary)));
+            a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
             Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
             jackyText.setCharacterDelay(50);
             jackyText.animateText("Here are some things that have made you happy before!");
+
+            //Fetch keywords from database and populate them into the view
+            List<String> keywordStrings = dbHelper.getTableThreeDataTopFive();
+            TextView keyword_1 = (TextView) findViewById(R.id.keyword_1);
+            TextView keyword_2 = (TextView) findViewById(R.id.keyword_2);
+            TextView keyword_3 = (TextView) findViewById(R.id.keyword_3);
+            TextView keyword_4 = (TextView) findViewById(R.id.keyword_4);
+            TextView keyword_5 = (TextView) findViewById(R.id.keyword_5);
+            keyword_1.setText(keywordStrings.get(0));
+            keyword_2.setText(keywordStrings.get(1));
+            keyword_3.setText(keywordStrings.get(2));
+            keyword_4.setText(keywordStrings.get(3));
+            keyword_5.setText(keywordStrings.get(4));
 
             Typewriter jackyText2 = (Typewriter) findViewById(R.id.jacky_text2);
             jackyText2.setInitialDelay(1500);
