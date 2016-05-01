@@ -59,12 +59,14 @@ public class TimelineActivity extends AppCompatActivity {
         cal1.set(Calendar.MINUTE, 0);
         cal1.set(Calendar.SECOND, 0);
         cal1.set(Calendar.MILLISECOND, 0);
+        cal1.set(Calendar.AM_PM,Calendar.AM);
         Calendar cal2 = Calendar.getInstance(); // cal2 is the first day of the next month
         cal2.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, 1);
         cal2.set(Calendar.HOUR, 0);
         cal2.set(Calendar.MINUTE, 0);
         cal2.set(Calendar.SECOND, 0);
         cal2.set(Calendar.MILLISECOND, 0);
+        cal2.set(Calendar.AM_PM,Calendar.AM);
 
         date1 = cal1.getTime();
         date2 = cal2.getTime();
