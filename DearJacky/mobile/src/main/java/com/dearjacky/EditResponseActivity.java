@@ -78,7 +78,7 @@ public class EditResponseActivity extends AppCompatActivity {
         happy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emotion = "happy";
+                emotion = "calm";
                 angry.setBackgroundResource(R.drawable.angry);
                 excited.setBackgroundResource(R.drawable.excited);
                 happy.setBackgroundResource(R.drawable.happy_selected);
