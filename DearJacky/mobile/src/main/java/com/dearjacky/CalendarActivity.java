@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 
@@ -21,6 +22,10 @@ import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -38,12 +43,40 @@ public class CalendarActivity extends AppCompatActivity {
         a.setTitle("Jacky");
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
 
+        String dbname = "260ProjectDB.db";
+        File dbpath = getBaseContext().getDatabasePath(dbname);
+        Log.d("T", dbpath.toString());
+//        Log.d("T", "DB Check");
+        System.out.println("DB Check");
+
+        if(dbpath.exists()){
+            Log.d("T", "DB EXISTSASDFASDFASDFASDF");
+        }
+        else{
+            Log.d("T", "DB DOESN'T EXISTSASDFASDFASDFASDF");
+//            if db doesn't exist, copy default from resources
+            try {
+                InputStream in = getResources().openRawResource(R.raw.db_dump);
+                OutputStream out = new FileOutputStream(dbpath);
+
+                // Transfer bytes from in to out
+                byte[] buf = new byte[1024];
+                int len;
+
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+                in.close();
+                out.close();
+            }catch(Exception e){
+
+            }
+        }
+
         dbHelper = new SensorTagDBHelper(getBaseContext());
 
         //
-        String dbname = "260ProjectDB.db";
-        File dbpath = getBaseContext().getDatabasePath(dbname);
-        System.out.println("dbpath: " + dbpath.toString());
+
         //
 
         Typewriter jackyText = (Typewriter) findViewById(R.id.jacky_text);
@@ -113,7 +146,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         verifyStoragePermissions(this);
 
-//        File f=new File("/data/user/0/com.dearjacky/databases/260ProjectDB.db");
+
 //        FileInputStream fis=null;
 //        FileOutputStream fos=null;
 //
