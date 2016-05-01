@@ -123,6 +123,7 @@
                             android:paddingRight="12dp"
                             android:textSize="16sp"
                             android:text="Soccer"
+                            android:id="@+id/keyword_1"
                             android:textColor="@color/text_white"/>
                     </android.support.v7.widget.CardView>
 
@@ -142,6 +143,7 @@
                             android:paddingLeft="12dp"
                             android:paddingRight="12dp"
                             android:textSize="16sp"
+                            android:id="@+id/keyword_2"
                             android:text="Jogging"
                             android:textColor="@color/text_white"/>
                     </android.support.v7.widget.CardView>
@@ -163,6 +165,7 @@
                             android:paddingRight="12dp"
                             android:textSize="16sp"
                             android:text="Movies"
+                            android:id="@+id/keyword_3"
                             android:textColor="@color/text_white"/>
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
@@ -189,6 +192,7 @@
                             android:paddingLeft="12dp"
                             android:paddingRight="12dp"
                             android:textSize="16sp"
+                            android:id="@+id/keyword_4"
                             android:text="VideoGames"
                             android:textColor="@color/text_white"/>
                     </android.support.v7.widget.CardView>
@@ -209,6 +213,7 @@
                             android:paddingLeft="12dp"
                             android:paddingRight="12dp"
                             android:textSize="16sp"
+                            android:id="@+id/keyword_5"
                             android:text="Reddit"
                             android:textColor="@color/text_white"/>
                     </android.support.v7.widget.CardView>

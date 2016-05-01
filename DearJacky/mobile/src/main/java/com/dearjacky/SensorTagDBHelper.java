@@ -170,7 +170,6 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
     and date2 = Apr 1 2016 23:59:59.999
      */
     public List<DataPointJacky> getTableOneDataDuringPeriod(Date date1, Date date2) {
-        SQLiteDatabase db = this.getWritableDatabase();
         List<DataPointJacky> resList = new ArrayList<DataPointJacky>();
         long stamp1 = date1.getTime();
         long stamp2 = date2.getTime();
@@ -204,6 +203,24 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
         return resList;
     }
 
+    public List<String> getTableThreeDataTopFive() {
+        List<String> resList = new ArrayList<String>();
+        //System.out.println("aaaaaaaa");
+        Cursor res = getTableThreePositiveSortedData();
+        //System.out.println("bbbbbbbbb");
+        res.moveToFirst();
+        int i = 0;
+        while(i < 5)
+        {
+            resList.add(res.getString(res.getColumnIndex(TABLE3_COL3)));
+            i++;
+        //    System.out.println("keywordsssssss: "+ res.getString(res.getColumnIndex(TABLE3_COL3)));
+            res.moveToNext();
+        }
+
+        return resList;
+    }
+
     public Cursor getAllTableOneData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM "+TABLE1_NAME, null);
@@ -216,22 +233,28 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor getAllTableThreeData() {
+    public Cursor getTableThreePositiveSortedData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM "+TABLE3_NAME, null);
+        System.out.println("get table three data!");
+        Cursor res = db.rawQuery("SELECT * FROM "+TABLE3_NAME+" WHERE "+TABLE3_COL2+"=='happy' OR "+TABLE3_COL2+"=='ok' ORDER BY "+TABLE3_COL4 + " DESC", null);
         return res;
     }
 
     public Cursor getUnprocessedData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM "+TABLE1_NAME+" WHERE PROCESSED = 0", null);
+        Cursor res = db.rawQuery("SELECT * FROM "+TABLE1_NAME+" WHERE PROCESSED == 0", null);
         return res;
     }
 
-    public Cursor getSelectedTableOneData(String query) {
+    public DataPointJacky getSelectedTableOneData(String timestamp) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery(query, null);
-        return res;
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE1_NAME + " WHERE TIMESTAMP == '"+timestamp+"'", null);
+        DataPointJacky tmpPoint = new DataPointJacky();
+        tmpPoint.timestamp = res.getLong(res.getColumnIndex(TABLE1_COL2));
+        tmpPoint.mood = res.getString(res.getColumnIndex(TABLE1_COL3));
+        tmpPoint.intensity = res.getInt(res.getColumnIndex(TABLE1_COL4));
+        tmpPoint.note = res.getString(res.getColumnIndex(TABLE1_COL6));
+        return tmpPoint;
     }
 
     public Cursor getSelectedTableTwoData(String query) {
