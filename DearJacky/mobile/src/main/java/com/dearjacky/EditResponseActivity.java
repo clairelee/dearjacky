@@ -26,12 +26,14 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class EditResponseActivity extends AppCompatActivity {
+    String emotion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_response);
         String title;
+        emotion = "";
         // If there are extras, edit, if not new...
         Intent intent = getIntent();
         if (intent.hasExtra("event_id")) {
@@ -47,12 +49,50 @@ public class EditResponseActivity extends AppCompatActivity {
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
 
 
-        Button emoji1 = (Button)findViewById(R.id.mood_angry);
-        emoji1.setOnClickListener(new View.OnClickListener() {
+        final Button angry = (Button)findViewById(R.id.mood_angry);
+        final Button excited = (Button)findViewById(R.id.mood_excited);
+        final Button happy = (Button)findViewById(R.id.mood_happy);
+        final Button depressed = (Button)findViewById(R.id.mood_depressed);
+
+
+        angry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), TimelineActivity.class);
-                startActivity(i);
+                emotion = "angry";
+                angry.setBackgroundResource(R.drawable.angry_selected);
+                excited.setBackgroundResource(R.drawable.excited);
+                happy.setBackgroundResource(R.drawable.happy);
+                depressed.setBackgroundResource(R.drawable.depressed);
+            }
+        });
+        excited.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emotion = "excited";
+                angry.setBackgroundResource(R.drawable.angry);
+                excited.setBackgroundResource(R.drawable.excited_selected);
+                happy.setBackgroundResource(R.drawable.happy);
+                depressed.setBackgroundResource(R.drawable.depressed);
+            }
+        });
+        happy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emotion = "happy";
+                angry.setBackgroundResource(R.drawable.angry);
+                excited.setBackgroundResource(R.drawable.excited);
+                happy.setBackgroundResource(R.drawable.happy_selected);
+                depressed.setBackgroundResource(R.drawable.depressed);
+            }
+        });
+        depressed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emotion = "depressed";
+                angry.setBackgroundResource(R.drawable.angry);
+                excited.setBackgroundResource(R.drawable.excited);
+                happy.setBackgroundResource(R.drawable.happy);
+                depressed.setBackgroundResource(R.drawable.depressed_selected);
             }
         });
 
@@ -176,8 +216,22 @@ public class EditResponseActivity extends AppCompatActivity {
                 return true;
             case R.id.action_confirm:
                 // Either update the entry, or save the new entry
-                Toast.makeText(EditResponseActivity.this, "Response Saved!", Toast.LENGTH_SHORT).show();
-                onBackPressed();
+                EditText notes = (EditText) findViewById(R.id.notes);
+                TextView intensity = (TextView) findViewById(R.id.value_text);
+                TextView date = (TextView) findViewById(R.id.date);
+                TextView time = (TextView) findViewById(R.id.time);
+
+                String user_notes = notes.getText().toString();
+                String user_intensity = intensity.getText().toString();
+                String user_date = date.getText().toString();
+                String user_time = time.getText().toString();
+                if (emotion.equals("")) {
+                    Toast.makeText(EditResponseActivity.this, "Please choose an emotion", Toast.LENGTH_SHORT).show();
+                } else {
+                    // SAVE ENTRY!!
+                    Toast.makeText(EditResponseActivity.this, "Response Saved! " + user_notes + " " + emotion + " " + user_intensity, Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }

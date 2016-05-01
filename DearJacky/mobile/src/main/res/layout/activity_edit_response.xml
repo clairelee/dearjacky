@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/notes"
+            android:id="@+id/note_label"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Notes"
             android:layout_marginTop="20dp" />
@@ -23,7 +23,8 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColorHighlight="@color/colorAccent"/>
+            android:textColorHighlight="@color/colorAccent"
+            android:id="@+id/notes"/>
 
         <View
             android:layout_width="fill_parent"
