@@ -27,33 +27,67 @@ import java.util.Locale;
 
 public class EditResponseActivity extends AppCompatActivity {
     String emotion;
+    SensorTagDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = new SensorTagDBHelper(getBaseContext());
         setContentView(R.layout.activity_edit_response);
         String title;
         emotion = "";
+        EditText notes = (EditText) findViewById(R.id.notes);
+        final Button angry = (Button)findViewById(R.id.mood_angry);
+        final Button excited = (Button)findViewById(R.id.mood_excited);
+        final Button happy = (Button)findViewById(R.id.mood_happy);
+        final Button depressed = (Button)findViewById(R.id.mood_depressed);
+        Button addButton = (Button) findViewById(R.id.add_value);
+        Button subButton = (Button) findViewById(R.id.sub_value);
+        final TextView valueText = (TextView) findViewById(R.id.value_text);
+        final TextView date = (TextView) findViewById(R.id.date);
+        final TextView time = (TextView) findViewById(R.id.time);
+
         // If there are extras, edit, if not new...
         Intent intent = getIntent();
-        if (intent.hasExtra("event_id")) {
+        if (intent.hasExtra("timestamp")) {
             title = "Edit Response";
-            // Do stuff to get the event infos
+            String timestamp = intent.getStringExtra("timestamp");
+            long timevalue = Long.parseLong(timestamp);
+            DataPointJacky event = dbHelper.getSelectedTableOneData(timestamp);
+            String mood = event.mood;
+            if (mood.equals("angry")) {
+                angry.setBackgroundResource(R.drawable.angry_selected);
+            } else if (mood.equals("excited")) {
+                excited.setBackgroundResource(R.drawable.excited_selected);
+            } else if (mood.equals("depressed")) {
+                depressed.setBackgroundResource(R.drawable.depressed_selected);
+            } else {
+                happy.setBackgroundResource(R.drawable.happy_selected);
+            }
+            notes.setText(event.note, TextView.BufferType.EDITABLE);
+            valueText.setText(String.valueOf(event.intensity));
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
+            String dateString = sdf.format(timevalue);
+            date.setText(dateString);
+            SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm a");
+            String timeString = sdf2.format(timevalue);
+            time.setText(timeString);
         } else {
             title = "New Response";
+            long now = System.currentTimeMillis();
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
+            String dateString = sdf.format(now);
+            date.setText(dateString);
+            SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm a");
+            String timeString = sdf2.format(now);
+            time.setText(timeString);
         }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         android.support.v7.app.ActionBar a = getSupportActionBar();
         a.setTitle(title);
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
-
-
-        final Button angry = (Button)findViewById(R.id.mood_angry);
-        final Button excited = (Button)findViewById(R.id.mood_excited);
-        final Button happy = (Button)findViewById(R.id.mood_happy);
-        final Button depressed = (Button)findViewById(R.id.mood_depressed);
-
 
         angry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,10 +130,6 @@ public class EditResponseActivity extends AppCompatActivity {
             }
         });
 
-        Button addButton = (Button) findViewById(R.id.add_value);
-        Button subButton = (Button) findViewById(R.id.sub_value);
-        final TextView valueText = (TextView) findViewById(R.id.value_text);
-
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,18 +151,6 @@ public class EditResponseActivity extends AppCompatActivity {
                 }
             }
         });
-
-        final TextView date = (TextView) findViewById(R.id.date);
-        final TextView time = (TextView) findViewById(R.id.time);
-        long now = System.currentTimeMillis();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
-        String dateString = sdf.format(now);
-        date.setText(dateString);
-
-        SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm a");
-        String timeString = sdf2.format(now);
-        time.setText(timeString);
 
         final Calendar myCalendar = Calendar.getInstance();
 
