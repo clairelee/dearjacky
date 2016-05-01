@@ -74,10 +74,23 @@ class DataPointAdapter extends ArrayAdapter<DataPointJacky> {
         viewHolder.leftText.setText(dataPoint.note);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(dataPoint.timestamp);
-        String[] days = {"Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"};
+        if (position -1 > -1) {
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTimeInMillis(getItem(position - 1).timestamp);
+            if(calendar.get(Calendar.DAY_OF_MONTH) != calendar2.get(Calendar.DAY_OF_MONTH)){
+                String[] days = {"Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"};
+                viewHolder.day.setText(days[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
+                viewHolder.number.setText("" + calendar.get(Calendar.DAY_OF_MONTH));
+            }else{
+                viewHolder.day.setText("");
+                viewHolder.number.setText("");
+            }
 
-        viewHolder.day.setText(days[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
-        viewHolder.number.setText("" + calendar.get(Calendar.DAY_OF_MONTH));
+        }else{
+            String[] days = {"Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"};
+            viewHolder.day.setText(days[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
+            viewHolder.number.setText("" + calendar.get(Calendar.DAY_OF_MONTH));
+        }
         String hour_of_day = "" + calendar.get(Calendar.HOUR_OF_DAY);
         String minute = "" + calendar.get(Calendar.MINUTE);
         if(calendar.get(Calendar.HOUR_OF_DAY) < 10)
