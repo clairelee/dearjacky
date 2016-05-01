@@ -25,7 +25,7 @@ public class Debug extends AppCompatActivity {
         reset_db.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
-                    String dbname = "260ProjectDB.db";
+                    String dbname = "my260ProjectDB.db";
                     File dbpath = getBaseContext().getDatabasePath(dbname);
                     Log.d("T", dbpath.toString());
                     InputStream in = getResources().openRawResource(R.raw.db_dump);

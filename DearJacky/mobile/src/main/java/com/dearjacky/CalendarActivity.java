@@ -17,12 +17,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
@@ -42,7 +45,7 @@ public class CalendarActivity extends AppCompatActivity {
         a.setTitle("Jacky");
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
 
-        String dbname = "260ProjectDB.db";
+        String dbname = "my260ProjectDB.db";
         File dbpath = getBaseContext().getDatabasePath(dbname);
         Log.d("T", dbpath.toString());
 //        Log.d("T", "DB Check");
@@ -73,7 +76,7 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         dbHelper = new SensorTagDBHelper(getBaseContext());
-        //dbHelper.clearAll();
+//        dbHelper.clearAll();
         //
 
         //
@@ -147,39 +150,39 @@ public class CalendarActivity extends AppCompatActivity {
         verifyStoragePermissions(this);
 
 
-//        FileInputStream fis=null;
-//        FileOutputStream fos=null;
-//
-//        try
-//        {
-//            fis=new FileInputStream(f);
-//            fos=new FileOutputStream("/mnt/sdcard/db_dump.db");
-//            while(true)
-//            {
-//                int i=fis.read();
-//                if(i!=-1)
-//                {fos.write(i);}
-//                else
-//                {break;}
-//            }
-//            fos.flush();
-//            Toast.makeText(this, "DB dump OK", Toast.LENGTH_LONG).show();
-//        }
-//        catch(Exception e)
-//        {
-//            e.printStackTrace();
-//            Toast.makeText(this, "DB dump ERROR", Toast.LENGTH_LONG).show();
-//        }
-//        finally
-//        {
-//            try
-//            {
-//                fos.close();
-//                fis.close();
-//            }
-//            catch(IOException ioe)
-//            {}
-//        }
+        FileInputStream fis=null;
+        FileOutputStream fos=null;
+
+        try
+        {
+            fis=new FileInputStream(dbpath);
+            fos=new FileOutputStream("/mnt/sdcard/db_dump.db");
+            while(true)
+            {
+                int i=fis.read();
+                if(i!=-1)
+                {fos.write(i);}
+                else
+                {break;}
+            }
+            fos.flush();
+            Toast.makeText(this, "DB dump OK", Toast.LENGTH_LONG).show();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(this, "DB dump ERROR", Toast.LENGTH_LONG).show();
+        }
+        finally
+        {
+            try
+            {
+                fos.close();
+                fis.close();
+            }
+            catch(IOException ioe)
+            {}
+        }
 
         //AlarmManager
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
