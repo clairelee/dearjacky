@@ -29,6 +29,12 @@ public class TimelineActivity extends AppCompatActivity {
         Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
         jackyText.setCharacterDelay(50);
         jackyText.animateText("Looks like you're feeling a bit down today. Tap me or this speech icon for some suggestions :)");
+        jackyText.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), RespondActivity.class);
+                startActivity(intent);
+            }
+        });
         ListView list = (ListView) findViewById(R.id.list);
 
         ArrayList<Events> items = new ArrayList<>();
