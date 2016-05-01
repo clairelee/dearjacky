@@ -109,13 +109,30 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
         contentValues.put(TABLE1_COL5, tag);
         contentValues.put(TABLE1_COL6, detail);
         contentValues.put(TABLE1_COL7, processed);
-        long result = db.insert(TABLE1_NAME, null, contentValues);
-        if(result == -1) {
-            return false;
+
+        Cursor cur = db.rawQuery("SELECT COUNT(*) FROM "+TABLE1_NAME+" WHERE TIMESTAMP = '"+timestamp+"'", null);
+        cur.moveToFirst();
+        int count = cur.getInt(0);
+        cur.close();
+        if(count == 0) {
+            long result = db.insert(TABLE1_NAME, null, contentValues);
+            if (result == -1)
+                return false;
+            else {
+                System.out.println("stored successfully!");
+                return true;
+            }
         }
-        else{
-            System.out.println("inserted new text successfully " + timestamp);
-            return true;
+        else
+        {
+            Cursor cur2 = db.rawQuery("DELETE FROM "+TABLE1_NAME+" WHERE TIMESTAMP = '"+timestamp+"'", null);
+            long result = db.insert(TABLE1_NAME, null, contentValues);
+            if (result == -1)
+                return false;
+            else {
+                System.out.println("updated successfully!");
+                return true;
+            }
         }
     }
 

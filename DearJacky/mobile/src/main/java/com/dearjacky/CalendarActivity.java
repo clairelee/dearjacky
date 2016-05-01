@@ -105,7 +105,8 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onSelectDate(Date date, View view) {
                 Intent intent = new Intent(getBaseContext(), TimelineActivity.class);
-                intent.putExtra("date", date);
+                long date_long = date.getTime();
+                intent.putExtra("date", date_long);
                 startActivity(intent);
             }
         };

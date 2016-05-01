@@ -2,7 +2,6 @@ package com.dearjacky;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -27,6 +25,10 @@ import java.util.Locale;
 
 public class EditResponseActivity extends AppCompatActivity {
     String emotion;
+    String note;
+    int intensity;
+    long timestamp;
+    SensorTagDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,15 @@ public class EditResponseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_response);
         String title;
         emotion = "";
+        note = "";
         // If there are extras, edit, if not new...
         Intent intent = getIntent();
-        if (intent.hasExtra("event_id")) {
+        if (intent.hasExtra("millis")) {
             title = "Edit Response";
-            // Do stuff to get the event infos
+            emotion = intent.getExtras().getString("mood");
+            note = intent.getExtras().getString("note");
+            intensity = Integer.parseInt(intent.getExtras().getString("intensity"));
+            timestamp = Long.parseLong(intent.getExtras().getString("millis"));
         } else {
             title = "New Response";
         }
@@ -48,12 +54,18 @@ public class EditResponseActivity extends AppCompatActivity {
         a.setTitle(title);
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
 
-
         final Button angry = (Button)findViewById(R.id.mood_angry);
         final Button excited = (Button)findViewById(R.id.mood_excited);
         final Button happy = (Button)findViewById(R.id.mood_happy);
         final Button depressed = (Button)findViewById(R.id.mood_depressed);
 
+        if(emotion.equals("angry")) angry.setBackgroundResource(R.drawable.angry_selected);
+        if(emotion.equals("happy")) excited.setBackgroundResource(R.drawable.excited_selected);
+        if(emotion.equals("sad")) depressed.setBackgroundResource(R.drawable.depressed_selected);
+        if(emotion.equals("ok")) happy.setBackgroundResource(R.drawable.happy_selected);
+
+        EditText notes = (EditText) findViewById(R.id.notes);
+        if(title.equals("Edit Response")) notes.setText(note);
 
         angry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +80,7 @@ public class EditResponseActivity extends AppCompatActivity {
         excited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emotion = "excited";
+                emotion = "happy";
                 angry.setBackgroundResource(R.drawable.angry);
                 excited.setBackgroundResource(R.drawable.excited_selected);
                 happy.setBackgroundResource(R.drawable.happy);
@@ -78,7 +90,7 @@ public class EditResponseActivity extends AppCompatActivity {
         happy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emotion = "calm";
+                emotion = "ok";
                 angry.setBackgroundResource(R.drawable.angry);
                 excited.setBackgroundResource(R.drawable.excited);
                 happy.setBackgroundResource(R.drawable.happy_selected);
@@ -88,7 +100,7 @@ public class EditResponseActivity extends AppCompatActivity {
         depressed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emotion = "depressed";
+                emotion = "sad";
                 angry.setBackgroundResource(R.drawable.angry);
                 excited.setBackgroundResource(R.drawable.excited);
                 happy.setBackgroundResource(R.drawable.happy);
@@ -99,6 +111,8 @@ public class EditResponseActivity extends AppCompatActivity {
         Button addButton = (Button) findViewById(R.id.add_value);
         Button subButton = (Button) findViewById(R.id.sub_value);
         final TextView valueText = (TextView) findViewById(R.id.value_text);
+        if(title.equals("Edit Response"))
+            valueText.setText(String.valueOf(intensity));
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +139,8 @@ public class EditResponseActivity extends AppCompatActivity {
         final TextView date = (TextView) findViewById(R.id.date);
         final TextView time = (TextView) findViewById(R.id.time);
         long now = System.currentTimeMillis();
+        if(title.equals("Edit Response")) now = timestamp;
+        else timestamp = now;
 
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
         String dateString = sdf.format(now);
@@ -229,6 +245,8 @@ public class EditResponseActivity extends AppCompatActivity {
                     Toast.makeText(EditResponseActivity.this, "Please choose an emotion", Toast.LENGTH_SHORT).show();
                 } else {
                     // SAVE ENTRY!!
+                    dbHelper = new SensorTagDBHelper(getBaseContext());
+                    dbHelper.insertTableOneData(String.valueOf(timestamp), emotion, Integer.parseInt(user_intensity), "", user_notes, 0);
                     Toast.makeText(EditResponseActivity.this, "Response Saved! " + user_notes + " " + emotion + " " + user_intensity, Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
