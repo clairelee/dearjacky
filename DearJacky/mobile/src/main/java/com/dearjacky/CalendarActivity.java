@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 
@@ -21,6 +22,10 @@ import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -38,12 +43,40 @@ public class CalendarActivity extends AppCompatActivity {
         a.setTitle("Jacky");
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
 
+        String dbname = "260ProjectDB.db";
+        File dbpath = getBaseContext().getDatabasePath(dbname);
+        Log.d("T", dbpath.toString());
+//        Log.d("T", "DB Check");
+        System.out.println("DB Check");
+
+        if(dbpath.exists()){
+            Log.d("T", "DB EXISTSASDFASDFASDFASDF");
+        }
+        else{
+            Log.d("T", "DB DOESN'T EXISTSASDFASDFASDFASDF");
+//            if db doesn't exist, copy default from resources
+            try {
+                InputStream in = getResources().openRawResource(R.raw.db_dump);
+                OutputStream out = new FileOutputStream(dbpath);
+
+                // Transfer bytes from in to out
+                byte[] buf = new byte[1024];
+                int len;
+
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+                in.close();
+                out.close();
+            }catch(Exception e){
+
+            }
+        }
+
         dbHelper = new SensorTagDBHelper(getBaseContext());
 
         //
-        String dbname = "260ProjectDB.db";
-        File dbpath = getBaseContext().getDatabasePath(dbname);
-        System.out.println("dbpath: " + dbpath.toString());
+
         //
 
         Typewriter jackyText = (Typewriter) findViewById(R.id.jacky_text);
@@ -114,7 +147,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         verifyStoragePermissions(this);
 
-//        File f=new File("/data/user/0/com.dearjacky/databases/260ProjectDB.db");
+
 //        FileInputStream fis=null;
 //        FileOutputStream fos=null;
 //
@@ -171,6 +204,65 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {  // After a pause OR at startup
+        super.onResume();
+        final CaldroidFragment caldroidFragment = new CaldroidFragment();
+        Bundle args = new Bundle();
+        Calendar cal = Calendar.getInstance();
+        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+        caldroidFragment.setArguments(args);
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.calendar, caldroidFragment);
+        t.commit();
+
+        Calendar myCalendar = new GregorianCalendar(2016, 3, 1);
+        Calendar myCalendar1 = new GregorianCalendar(2016, 3, 1);
+        Calendar myCalendar2 = new GregorianCalendar(2016, 3, 2);
+        for(int i=0; i<60; i++){
+            //Calendar myCalendar = new GregorianCalendar(2016, 3, i);
+            myCalendar1.add(Calendar.DATE, 1);
+            Date myDate1 = myCalendar1.getTime();
+            myCalendar2.add(Calendar.DATE, 1);
+            Date myDate2 = myCalendar2.getTime();
+            int colorId = 0;
+            List<DataPointJacky> myEventList= dbHelper.getTableOneDataDuringPeriod(myDate1, myDate2);
+            int numHappy = 0;
+            int numOk = 0;
+            int numSad = 0;
+            int numAngry = 0;
+            for(DataPointJacky ele : myEventList)
+            {
+                if(ele.mood.equals("happy")) numHappy++;
+                if(ele.mood.equals("ok")) numOk++;
+                if(ele.mood.equals("sad")) numSad++;
+                if(ele.mood.equals("angry")) numAngry++;
+            }
+            if(numHappy == 0 && numOk == 0 && numSad == 0 && numAngry == 0) colorId = R.color.text_white;
+            else if(numHappy == Math.max(Math.max(numHappy, numOk), Math.max(numSad, numAngry))) colorId = R.color.colorExcited;
+            else if(numOk == Math.max(Math.max(numHappy, numOk), Math.max(numSad, numAngry))) colorId = R.color.colorCalm;
+            else if(numSad == Math.max(Math.max(numHappy, numOk), Math.max(numSad, numAngry))) colorId = R.color.colorDepressed;
+            else if(numAngry == Math.max(Math.max(numHappy, numOk), Math.max(numSad, numAngry))) colorId = R.color.colorAngry;
+            ColorDrawable cd = new ColorDrawable(ContextCompat.getColor(getBaseContext(), colorId));
+            caldroidFragment.setBackgroundDrawableForDate(cd, myDate1);
+            //System.out.println("myCalendar1: " + myCalendar1.getTime());
+            //System.out.println("myCalendar2: " + myCalendar2.getTime());
+        }
+        caldroidFragment.refreshView();
+
+        final CaldroidListener listener = new CaldroidListener() {
+            @Override
+            public void onSelectDate(Date date, View view) {
+                Intent intent = new Intent(getBaseContext(), TimelineActivity.class);
+                long date_long = date.getTime();
+                intent.putExtra("date", date_long);
+                startActivity(intent);
+            }
+        };
+        caldroidFragment.setCaldroidListener(listener);
     }
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;

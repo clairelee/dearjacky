@@ -19,6 +19,9 @@ import java.util.List;
 
 public class TimelineActivity extends AppCompatActivity {
     private SensorTagDBHelper dbHelper;
+    ListView list;
+    Date date1;
+    Date date2;
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
@@ -48,7 +51,7 @@ public class TimelineActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        ListView list = (ListView) findViewById(R.id.list);
+        list = (ListView) findViewById(R.id.list);
 
         Calendar cal1 = Calendar.getInstance(); // cal1 is the first day of this month
         cal1.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), 1);
@@ -63,8 +66,8 @@ public class TimelineActivity extends AppCompatActivity {
         cal2.set(Calendar.SECOND, 0);
         cal2.set(Calendar.MILLISECOND, 0);
 
-        Date date1 = cal1.getTime();
-        Date date2 = cal2.getTime();
+        date1 = cal1.getTime();
+        date2 = cal2.getTime();
 
         List<DataPointJacky> items = dbHelper.getTableOneDataDuringPeriod(date1, date2);
         System.out.println(date1);
@@ -107,6 +110,13 @@ public class TimelineActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {  // After a pause OR at startup
+        super.onResume();
+        List<DataPointJacky> items = dbHelper.getTableOneDataDuringPeriod(date1, date2);
+        list.setAdapter(new DataPointAdapter(this, items));
     }
 
     @Override

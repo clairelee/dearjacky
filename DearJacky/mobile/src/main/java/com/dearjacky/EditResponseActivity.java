@@ -29,6 +29,7 @@ public class EditResponseActivity extends AppCompatActivity {
     int intensity;
     long timestamp;
     SensorTagDBHelper dbHelper;
+    Calendar myCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +151,7 @@ public class EditResponseActivity extends AppCompatActivity {
         String timeString = sdf2.format(now);
         time.setText(timeString);
 
-        final Calendar myCalendar = Calendar.getInstance();
+        myCalendar = Calendar.getInstance();
 
         final DatePickerDialog.OnDateSetListener datepicker = new DatePickerDialog.OnDateSetListener() {
 
@@ -168,47 +169,50 @@ public class EditResponseActivity extends AppCompatActivity {
 
         };
 
-        date.setOnClickListener(new View.OnClickListener() {
+        if(title.equals("New Response"))
+            date.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(EditResponseActivity.this, datepicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    new DatePickerDialog(EditResponseActivity.this, datepicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+        if(title.equals("New Response"))
+            time.setOnClickListener(new View.OnClickListener() {
 
-        time.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+                    final int minute = myCalendar.get(Calendar.MINUTE);
+                    TimePickerDialog mTimePicker;
+                    mTimePicker = new TimePickerDialog(EditResponseActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            myCalendar.set(Calendar.HOUR_OF_DAY, selectedHour);
+                            myCalendar.set(Calendar.MINUTE, selectedMinute);
+                            String string;
+                            String minuteString;
+                            if (selectedMinute < 10)
+                                minuteString = "0" + selectedMinute;
+                            else
+                                minuteString = "" + selectedMinute;
+                            if (selectedHour > 12) {
+                                string = selectedHour - 12 + ":" + minuteString + " PM";
+                            } else {
+                                if (selectedHour == 0)
+                                    selectedHour = 12;
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(EditResponseActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String string;
-                        if (selectedHour > 12) {
-                            string = selectedHour - 12 + ":" + selectedMinute + " PM";
-                        } else {
-                            string = selectedHour + ":" + selectedMinute + " AM";
+                                string = selectedHour + ":" + minuteString + " AM";
+                            }
+                            time.setText(string);
                         }
-                        time.setText(string);
-                    }
-                }, hour, minute, false);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-
-            }
-        });
-
-
-//        a.setTitle("Edit Response");
-//        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
-//        a.setBackgroundDrawable(colorDrawable);
-
+                    }, hour, minute, false);//Yes 24 hour time
+                    mTimePicker.setTitle("Select Time");
+                    mTimePicker.show();
+                }
+            });
     }
 
     @Override
@@ -246,6 +250,8 @@ public class EditResponseActivity extends AppCompatActivity {
                 } else {
                     // SAVE ENTRY!!
                     dbHelper = new SensorTagDBHelper(getBaseContext());
+                    if (getSupportActionBar().getTitle().equals("New Response"))
+                        timestamp = myCalendar.getTimeInMillis();
                     dbHelper.insertTableOneData(String.valueOf(timestamp), emotion, Integer.parseInt(user_intensity), "", user_notes, 0);
                     Toast.makeText(EditResponseActivity.this, "Response Saved! " + user_notes + " " + emotion + " " + user_intensity, Toast.LENGTH_SHORT).show();
                     onBackPressed();
