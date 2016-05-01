@@ -2,7 +2,6 @@ package com.dearjacky;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -27,67 +25,48 @@ import java.util.Locale;
 
 public class EditResponseActivity extends AppCompatActivity {
     String emotion;
+    String note;
+    int intensity;
+    long timestamp;
     SensorTagDBHelper dbHelper;
+    Calendar myCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbHelper = new SensorTagDBHelper(getBaseContext());
         setContentView(R.layout.activity_edit_response);
         String title;
         emotion = "";
-        EditText notes = (EditText) findViewById(R.id.notes);
-        final Button angry = (Button)findViewById(R.id.mood_angry);
-        final Button excited = (Button)findViewById(R.id.mood_excited);
-        final Button happy = (Button)findViewById(R.id.mood_happy);
-        final Button depressed = (Button)findViewById(R.id.mood_depressed);
-        Button addButton = (Button) findViewById(R.id.add_value);
-        Button subButton = (Button) findViewById(R.id.sub_value);
-        final TextView valueText = (TextView) findViewById(R.id.value_text);
-        final TextView date = (TextView) findViewById(R.id.date);
-        final TextView time = (TextView) findViewById(R.id.time);
-
+        note = "";
         // If there are extras, edit, if not new...
         Intent intent = getIntent();
-        if (intent.hasExtra("timestamp")) {
+        if (intent.hasExtra("millis")) {
             title = "Edit Response";
-            String timestamp = intent.getStringExtra("timestamp");
-            long timevalue = Long.parseLong(timestamp);
-            DataPointJacky event = dbHelper.getSelectedTableOneData(timestamp);
-            String mood = event.mood;
-            if (mood.equals("angry")) {
-                angry.setBackgroundResource(R.drawable.angry_selected);
-            } else if (mood.equals("excited")) {
-                excited.setBackgroundResource(R.drawable.excited_selected);
-            } else if (mood.equals("depressed")) {
-                depressed.setBackgroundResource(R.drawable.depressed_selected);
-            } else {
-                happy.setBackgroundResource(R.drawable.happy_selected);
-            }
-            notes.setText(event.note, TextView.BufferType.EDITABLE);
-            valueText.setText(String.valueOf(event.intensity));
-            SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
-            String dateString = sdf.format(timevalue);
-            date.setText(dateString);
-            SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm a");
-            String timeString = sdf2.format(timevalue);
-            time.setText(timeString);
+            emotion = intent.getExtras().getString("mood");
+            note = intent.getExtras().getString("note");
+            intensity = Integer.parseInt(intent.getExtras().getString("intensity"));
+            timestamp = Long.parseLong(intent.getExtras().getString("millis"));
         } else {
             title = "New Response";
-            long now = System.currentTimeMillis();
-            SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
-            String dateString = sdf.format(now);
-            date.setText(dateString);
-            SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm a");
-            String timeString = sdf2.format(now);
-            time.setText(timeString);
         }
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         android.support.v7.app.ActionBar a = getSupportActionBar();
         a.setTitle(title);
         a.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
+
+        final Button angry = (Button)findViewById(R.id.mood_angry);
+        final Button excited = (Button)findViewById(R.id.mood_excited);
+        final Button happy = (Button)findViewById(R.id.mood_happy);
+        final Button depressed = (Button)findViewById(R.id.mood_depressed);
+
+        if(emotion.equals("angry")) angry.setBackgroundResource(R.drawable.angry_selected);
+        if(emotion.equals("happy")) excited.setBackgroundResource(R.drawable.excited_selected);
+        if(emotion.equals("sad")) depressed.setBackgroundResource(R.drawable.depressed_selected);
+        if(emotion.equals("ok")) happy.setBackgroundResource(R.drawable.happy_selected);
+
+        EditText notes = (EditText) findViewById(R.id.notes);
+        if(title.equals("Edit Response")) notes.setText(note);
 
         angry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +81,7 @@ public class EditResponseActivity extends AppCompatActivity {
         excited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emotion = "excited";
+                emotion = "happy";
                 angry.setBackgroundResource(R.drawable.angry);
                 excited.setBackgroundResource(R.drawable.excited_selected);
                 happy.setBackgroundResource(R.drawable.happy);
@@ -112,7 +91,7 @@ public class EditResponseActivity extends AppCompatActivity {
         happy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emotion = "calm";
+                emotion = "ok";
                 angry.setBackgroundResource(R.drawable.angry);
                 excited.setBackgroundResource(R.drawable.excited);
                 happy.setBackgroundResource(R.drawable.happy_selected);
@@ -122,13 +101,19 @@ public class EditResponseActivity extends AppCompatActivity {
         depressed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emotion = "depressed";
+                emotion = "sad";
                 angry.setBackgroundResource(R.drawable.angry);
                 excited.setBackgroundResource(R.drawable.excited);
                 happy.setBackgroundResource(R.drawable.happy);
                 depressed.setBackgroundResource(R.drawable.depressed_selected);
             }
         });
+
+        Button addButton = (Button) findViewById(R.id.add_value);
+        Button subButton = (Button) findViewById(R.id.sub_value);
+        final TextView valueText = (TextView) findViewById(R.id.value_text);
+        if(title.equals("Edit Response"))
+            valueText.setText(String.valueOf(intensity));
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +137,21 @@ public class EditResponseActivity extends AppCompatActivity {
             }
         });
 
-        final Calendar myCalendar = Calendar.getInstance();
+        final TextView date = (TextView) findViewById(R.id.date);
+        final TextView time = (TextView) findViewById(R.id.time);
+        long now = System.currentTimeMillis();
+        if(title.equals("Edit Response")) now = timestamp;
+        else timestamp = now;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
+        String dateString = sdf.format(now);
+        date.setText(dateString);
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("h:mm a");
+        String timeString = sdf2.format(now);
+        time.setText(timeString);
+
+        myCalendar = Calendar.getInstance();
 
         final DatePickerDialog.OnDateSetListener datepicker = new DatePickerDialog.OnDateSetListener() {
 
@@ -170,47 +169,50 @@ public class EditResponseActivity extends AppCompatActivity {
 
         };
 
-        date.setOnClickListener(new View.OnClickListener() {
+        if(title.equals("New Response"))
+            date.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(EditResponseActivity.this, datepicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    new DatePickerDialog(EditResponseActivity.this, datepicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+        if(title.equals("New Response"))
+            time.setOnClickListener(new View.OnClickListener() {
 
-        time.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+                    final int minute = myCalendar.get(Calendar.MINUTE);
+                    TimePickerDialog mTimePicker;
+                    mTimePicker = new TimePickerDialog(EditResponseActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            myCalendar.set(Calendar.HOUR_OF_DAY, selectedHour);
+                            myCalendar.set(Calendar.MINUTE, selectedMinute);
+                            String string;
+                            String minuteString;
+                            if (selectedMinute < 10)
+                                minuteString = "0" + selectedMinute;
+                            else
+                                minuteString = "" + selectedMinute;
+                            if (selectedHour > 12) {
+                                string = selectedHour - 12 + ":" + minuteString + " PM";
+                            } else {
+                                if (selectedHour == 0)
+                                    selectedHour = 12;
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(EditResponseActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String string;
-                        if (selectedHour > 12) {
-                            string = selectedHour - 12 + ":" + selectedMinute + " PM";
-                        } else {
-                            string = selectedHour + ":" + selectedMinute + " AM";
+                                string = selectedHour + ":" + minuteString + " AM";
+                            }
+                            time.setText(string);
                         }
-                        time.setText(string);
-                    }
-                }, hour, minute, false);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-
-            }
-        });
-
-
-//        a.setTitle("Edit Response");
-//        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#009688"));
-//        a.setBackgroundDrawable(colorDrawable);
-
+                    }, hour, minute, false);//Yes 24 hour time
+                    mTimePicker.setTitle("Select Time");
+                    mTimePicker.show();
+                }
+            });
     }
 
     @Override
@@ -247,6 +249,10 @@ public class EditResponseActivity extends AppCompatActivity {
                     Toast.makeText(EditResponseActivity.this, "Please choose an emotion", Toast.LENGTH_SHORT).show();
                 } else {
                     // SAVE ENTRY!!
+                    dbHelper = new SensorTagDBHelper(getBaseContext());
+                    if (getSupportActionBar().getTitle().equals("New Response"))
+                        timestamp = myCalendar.getTimeInMillis();
+                    dbHelper.insertTableOneData(String.valueOf(timestamp), emotion, Integer.parseInt(user_intensity), "", user_notes, 0);
                     Toast.makeText(EditResponseActivity.this, "Response Saved! " + user_notes + " " + emotion + " " + user_intensity, Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
