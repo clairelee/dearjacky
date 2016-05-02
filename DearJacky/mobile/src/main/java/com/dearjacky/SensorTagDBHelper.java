@@ -240,7 +240,7 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllTableOneData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM "+TABLE1_NAME, null);
+        Cursor res = db.rawQuery("SELECT * FROM "+TABLE1_NAME+" ORDER BY "+TABLE1_COL2+" ASC", null);
         return res;
     }
 

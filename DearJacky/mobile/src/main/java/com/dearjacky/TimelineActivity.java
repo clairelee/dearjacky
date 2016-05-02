@@ -76,6 +76,20 @@ public class TimelineActivity extends AppCompatActivity {
         System.out.println(date2);
         //System.out.println(items.size());
         list.setAdapter(new DataPointAdapter(this, items));
+        int position = 0;
+        for (int i = 0; i < items.size(); i++) {
+            DataPointJacky current = items.get(i);
+            if (current.timestamp < millis) {
+                position += 1;
+            }
+        }
+        final int pos = position;
+        list.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                list.setSelection(pos);
+            }
+        },100L);
 
 //        need to replace the following...
 //        ArrayList<Events> items = new ArrayList<>();
