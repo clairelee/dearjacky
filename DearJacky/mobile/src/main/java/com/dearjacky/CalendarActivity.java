@@ -99,7 +99,7 @@ public class CalendarActivity extends AppCompatActivity {
         args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         caldroidFragment.setArguments(args);
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.calendar, caldroidFragment);
+        t.replace(R.id.calendar_frame, caldroidFragment);
         t.commit();
 
         Calendar myCalendar = new GregorianCalendar(2016, 3, 1);
@@ -218,7 +218,8 @@ public class CalendarActivity extends AppCompatActivity {
         args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         caldroidFragment.setArguments(args);
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.calendar, caldroidFragment);
+        t.replace(R.id.calendar_frame, caldroidFragment);
+//        findViewById(R.id.calendar).setVisibility(View.GONE);
         t.commit();
 
         Calendar myCalendar = new GregorianCalendar(2016, 3, 1);
