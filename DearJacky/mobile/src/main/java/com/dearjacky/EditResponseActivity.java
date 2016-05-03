@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -265,10 +264,16 @@ public class EditResponseActivity extends AppCompatActivity {
                     if (getSupportActionBar().getTitle().equals("New Response"))
                         timestamp = myCalendar.getTimeInMillis();
                     System.out.println(timestamp);
-                    if (getSupportActionBar().getTitle().equals("New Response"))
+                    if (getSupportActionBar().getTitle().equals("New Response")) {
                         dbHelper.insertTableOneData(String.valueOf(timestamp), emotion, Integer.parseInt(user_intensity), "", user_notes, 0);
-                    else
+                        Intent NLPintent = new Intent(this, NLPService.class);
+                        startService(NLPintent);
+                    }
+                    else {
                         dbHelper.updateTableOneData(String.valueOf(timestamp), emotion, Integer.parseInt(user_intensity), "", user_notes, 0);
+                        Intent NLPintent = new Intent(this, NLPService.class);
+                        startService(NLPintent);
+                    }
                     Toast.makeText(EditResponseActivity.this, "Response Saved! " + user_notes + " " + emotion + " " + user_intensity, Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
