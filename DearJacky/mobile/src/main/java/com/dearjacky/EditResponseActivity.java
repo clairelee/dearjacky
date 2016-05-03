@@ -1,7 +1,9 @@
 package com.dearjacky;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -30,6 +33,7 @@ public class EditResponseActivity extends AppCompatActivity {
     long timestamp;
     SensorTagDBHelper dbHelper;
     Calendar myCalendar;
+    boolean newResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +50,10 @@ public class EditResponseActivity extends AppCompatActivity {
             note = intent.getExtras().getString("note");
             intensity = Integer.parseInt(intent.getExtras().getString("intensity"));
             timestamp = Long.parseLong(intent.getExtras().getString("millis"));
+            newResponse= false;
         } else {
             title = "New Response";
+            newResponse = true;
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
@@ -218,7 +224,13 @@ public class EditResponseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
+        Toast.makeText(EditResponseActivity.this, String.valueOf(timestamp), Toast.LENGTH_SHORT).show();
+        if (newResponse){
+            getMenuInflater().inflate(R.menu.menu, menu);
+        }
+        else{
+            getMenuInflater().inflate(R.menu.menu_with_delete, menu);
+        }
         //return true;
         return super.onCreateOptionsMenu(menu);
     }
@@ -260,6 +272,23 @@ public class EditResponseActivity extends AppCompatActivity {
                     Toast.makeText(EditResponseActivity.this, "Response Saved! " + user_notes + " " + emotion + " " + user_intensity, Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
+            case R.id.action_delete:
+                new AlertDialog.Builder(this)
+                        .setTitle("Delete Entry?")
+                        .setMessage("Are you sure you want to permanantly delete this entry?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dbHelper = new SensorTagDBHelper(getBaseContext());
+                                dbHelper.deleteTableOneData(String.valueOf(timestamp));
+                                Toast.makeText(EditResponseActivity.this, "Response Deleted! "+ timestamp, Toast.LENGTH_SHORT).show();
+                                onBackPressed();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             default:
                 return super.onOptionsItemSelected(item);
         }
