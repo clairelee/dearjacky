@@ -277,6 +277,7 @@ public class EditResponseActivity extends AppCompatActivity {
                     Toast.makeText(EditResponseActivity.this, "Response Saved! " + user_notes + " " + emotion + " " + user_intensity, Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
+                return true;
             case R.id.action_delete:
                 new AlertDialog.Builder(this)
                         .setTitle("Delete Entry?")

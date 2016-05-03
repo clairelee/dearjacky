@@ -61,25 +61,28 @@ public class RespondActivity extends AppCompatActivity {
 
             Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
             jackyText.setCharacterDelay(50);
-            jackyText.animateText("Here are some things that have made you happy before!");
+            String[] messages = JackyPhrases.suggestionPhrases;
+            jackyText.animateText(messages[(int)(Math.random()*messages.length)]);
 
             //Fetch keywords from database and populate them into the view
-            List<String> keywordStrings = dbHelper.getTableThreeDataTopFive();
+            List<String> keywordStrings = dbHelper.getTableThreeDataTopTen();
             TextView keyword_1 = (TextView) findViewById(R.id.keyword_1);
             TextView keyword_2 = (TextView) findViewById(R.id.keyword_2);
             TextView keyword_3 = (TextView) findViewById(R.id.keyword_3);
             TextView keyword_4 = (TextView) findViewById(R.id.keyword_4);
             TextView keyword_5 = (TextView) findViewById(R.id.keyword_5);
-            keyword_1.setText(keywordStrings.get(0));
-            keyword_2.setText(keywordStrings.get(1));
-            keyword_3.setText(keywordStrings.get(2));
-            keyword_4.setText(keywordStrings.get(3));
-            keyword_5.setText(keywordStrings.get(4));
+
+            keyword_1.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
+            keyword_2.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
+            keyword_3.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
+            keyword_4.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
+            keyword_5.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
 
             Typewriter jackyText2 = (Typewriter) findViewById(R.id.jacky_text2);
             jackyText2.setInitialDelay(1500);
             jackyText2.setCharacterDelay(50);
-            jackyText2.animateText("Maybe talking to somebody about it will help?");
+            String[] messages2 = JackyPhrases.contactsPhrases;
+            jackyText2.animateText(messages2[(int)(Math.random()*messages2.length)]);
             RoundedQuickContactBadge badge1 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge);
 
             RoundedQuickContactBadge badge2 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge2);

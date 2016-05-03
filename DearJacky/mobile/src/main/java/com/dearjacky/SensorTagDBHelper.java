@@ -238,6 +238,24 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
         return resList;
     }
 
+    public List<String> getTableThreeDataTopTen() {
+        List<String> resList = new ArrayList<String>();
+        //System.out.println("aaaaaaaa");
+        Cursor res = getTableThreePositiveSortedData();
+        //System.out.println("bbbbbbbbb");
+        res.moveToFirst();
+        int i = 0;
+        while(i < 10)
+        {
+            resList.add(res.getString(res.getColumnIndex(TABLE3_COL3)));
+            i++;
+            //    System.out.println("keywordsssssss: "+ res.getString(res.getColumnIndex(TABLE3_COL3)));
+            res.moveToNext();
+        }
+
+        return resList;
+    }
+
     public Cursor getAllTableOneData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("SELECT * FROM "+TABLE1_NAME+" ORDER BY "+TABLE1_COL2+" ASC", null);
