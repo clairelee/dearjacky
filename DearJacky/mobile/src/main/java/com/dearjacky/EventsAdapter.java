@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.alorma.timeline.TimelineView;
+import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
@@ -83,12 +84,16 @@ class EventsAdapter extends ArrayAdapter<Events> {
         }else if(events.getMood() == 3) {
             color = ContextCompat.getColor(parent.getContext(), R.color.colorAngry);
             tail = R.drawable.tail_angry;
+            Glide.with(getContext()).load(R.drawable.angry).into(viewHolder.timeline);
+            viewHolder.timeline.setIndicatorSize(
+            30);
+//            viewHolder.timeline.
         }
 
         viewHolder.cv.setCardBackgroundColor(color);
         viewHolder.tail.setBackgroundResource(tail);
-        viewHolder.timeline.setIndicatorColor(color);
-        viewHolder.timeline.setInternalColor(color);
+//        viewHolder.timeline.setIndicatorColor(color);
+//        viewHolder.timeline.setInternalColor(color);
 
 
 

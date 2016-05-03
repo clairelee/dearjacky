@@ -297,14 +297,14 @@ public abstract class TimelineView extends ImageView {
 
     private void drawTypeEnd(Canvas canvas) {
         drawLine(canvas, rect.top, rect.top + 30);
-        int y = rect.top + (int) indicatorSize + 30;
-        drawIndicator(canvas, paintIndicator, rect.centerX(), y, indicatorSize);
+        int y = rect.top + (int) indicatorSize - 30;
+//        drawIndicator(canvas, paintIndicator, rect.centerX(), y, indicatorSize);
         if (isDrawInternal()) {
             drawInternal(canvas);
         }
         if (hasInternalBitmap()) {
             drawBitmap(canvas, (rect.centerX() - indicatorSize) + internalPadding,
-                    (rect.centerY() - indicatorSize) + internalPadding,
+                    y,
                     (int) ((indicatorSize - internalPadding) * 2));
         }
     }
@@ -323,15 +323,15 @@ public abstract class TimelineView extends ImageView {
         } else if (timelineAlignment == ALIGNMENT_END) {
             centerY = (int) (rect.bottom - indicatorSize);
         }
-        int y = rect.top + (int) indicatorSize + 30;
-        drawIndicator(canvas, paintIndicator, rect.centerX(), y, indicatorSize);
+        int y = rect.top + (int) indicatorSize - 30;
+//        drawIndicator(canvas, paintIndicator, rect.centerX(), y, indicatorSize);
         if (isDrawInternal()) {
             drawInternal(canvas, paintInternal, rect.centerX(), centerY,
                     indicatorSize - internalPadding);
         }
         if (hasInternalBitmap()) {
             drawBitmap(canvas, (rect.centerX() - indicatorSize) + internalPadding,
-                    (centerY - indicatorSize) + internalPadding,
+                    y,
                     (int) ((indicatorSize - internalPadding) * 2));
         }
     }
@@ -342,8 +342,8 @@ public abstract class TimelineView extends ImageView {
 
     private void drawTypeStart(Canvas canvas) {
         drawLine(canvas, rect.top + 30, rect.bottom);
-        int y = rect.top + (int) indicatorSize + 30;
-        drawIndicator(canvas, paintIndicator, rect.centerX(), y, indicatorSize);
+        int y = rect.top + (int) indicatorSize - 30;
+//        drawIndicator(canvas, paintIndicator, rect.centerX(), y, indicatorSize);
 
         if (isDrawInternal()) {
             drawInternal(canvas);
@@ -351,7 +351,7 @@ public abstract class TimelineView extends ImageView {
 
         if (hasInternalBitmap()) {
             drawBitmap(canvas, (rect.centerX() - indicatorSize) + internalPadding,
-                    (rect.centerY() - indicatorSize) + internalPadding,
+                    y,
                     (int) ((indicatorSize - internalPadding) * 2));
         }
     }
