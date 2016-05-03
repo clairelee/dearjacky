@@ -24,7 +24,7 @@ public class JackyPhrases {
 
     static String[] happyPhrases ={
             "Looks like today is going pretty well, I'm glad!",
-            "Seems like a great day so far, tell me more about what you've did today :)",
+            "Seems like a great day so far, tell me more about what you've done today :)",
             "Hey! Thanks for checking in with me, its nice to hear about your day!",
             "I love hearing your good news!",
             "Thanks for checking in with me :)"
