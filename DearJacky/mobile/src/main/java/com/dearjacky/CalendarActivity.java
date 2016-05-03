@@ -83,7 +83,8 @@ public class CalendarActivity extends AppCompatActivity {
 
         Typewriter jackyText = (Typewriter) findViewById(R.id.jacky_text);
         jackyText.setCharacterDelay(50);
-        jackyText.animateText("Seems like this week was rough. If you tap here, I have some suggestions that might cheer you up!");
+        String[] messages = JackyPhrases.getList(dbHelper);
+        jackyText.animateText(messages[(int)(Math.random()*messages.length)]);
         jackyText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), RespondActivity.class);
@@ -105,7 +106,7 @@ public class CalendarActivity extends AppCompatActivity {
         Calendar myCalendar = new GregorianCalendar(2016, 3, 1);
         Calendar myCalendar1 = new GregorianCalendar(2016, 3, 1);
         Calendar myCalendar2 = new GregorianCalendar(2016, 3, 2);
-        for(int i=0; i<60; i++){
+        for(int i=0; i<90; i++){
             //Calendar myCalendar = new GregorianCalendar(2016, 3, i);
             myCalendar1.add(Calendar.DATE, 1);
             Date myDate1 = myCalendar1.getTime();

@@ -61,7 +61,8 @@ public class RespondActivity extends AppCompatActivity {
 
             Typewriter jackyText = (Typewriter) findViewById(R.id.event_name);
             jackyText.setCharacterDelay(50);
-            jackyText.animateText("Here are some things that have made you happy before!");
+            String[] messages = JackyPhrases.suggestionPhrases;
+            jackyText.animateText(messages[(int)(Math.random()*messages.length)]);
 
             //Fetch keywords from database and populate them into the view
             List<String> keywordStrings = dbHelper.getTableThreeDataTopTen();
@@ -80,7 +81,8 @@ public class RespondActivity extends AppCompatActivity {
             Typewriter jackyText2 = (Typewriter) findViewById(R.id.jacky_text2);
             jackyText2.setInitialDelay(1500);
             jackyText2.setCharacterDelay(50);
-            jackyText2.animateText("Maybe talking to somebody about it will help?");
+            String[] messages2 = JackyPhrases.contactsPhrases;
+            jackyText2.animateText(messages2[(int)(Math.random()*messages2.length)]);
             RoundedQuickContactBadge badge1 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge);
 
             RoundedQuickContactBadge badge2 = (RoundedQuickContactBadge) findViewById(R.id.quickContactBadge2);
