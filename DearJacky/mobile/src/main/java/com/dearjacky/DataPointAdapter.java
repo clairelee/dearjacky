@@ -123,22 +123,22 @@ class DataPointAdapter extends ArrayAdapter<DataPointJacky> {
             color = ContextCompat.getColor(parent.getContext(), R.color.colorExcited);
             tail = R.drawable.tail_excited;
             Glide.with(getContext()).load(R.drawable.excited).into(viewHolder.timeline);
-            viewHolder.timeline.setIndicatorSize(50);
+//            viewHolder.timeline.setIndicatorSize(50);
         }else if(dataPoint.mood.equals("ok")) {
             color = ContextCompat.getColor(parent.getContext(), R.color.colorCalm);
             tail = R.drawable.tail_happy;
             Glide.with(getContext()).load(R.drawable.happy).into(viewHolder.timeline);
-            viewHolder.timeline.setIndicatorSize(50);
+//            viewHolder.timeline.setIndicatorSize(50);
         }else if(dataPoint.mood.equals("sad")) {
             color = ContextCompat.getColor(parent.getContext(), R.color.colorDepressed);
             tail = R.drawable.tail_sad;
             Glide.with(getContext()).load(R.drawable.depressed).into(viewHolder.timeline);
-            viewHolder.timeline.setIndicatorSize(50);
+//            viewHolder.timeline.setIndicatorSize(50);
         }else if(dataPoint.mood.equals("angry")) {
             color = ContextCompat.getColor(parent.getContext(), R.color.colorAngry);
             tail = R.drawable.tail_angry;
             Glide.with(getContext()).load(R.drawable.angry).into(viewHolder.timeline);
-            viewHolder.timeline.setIndicatorSize(50);
+//            viewHolder.timeline.setIndicatorSize(50);
         }
 
         viewHolder.cv.setCardBackgroundColor(color);
