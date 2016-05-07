@@ -59,6 +59,17 @@ public class Debug extends AppCompatActivity {
             }
         });
 
+        Button reset_db2 = (Button) findViewById(R.id.button);
+
+        reset_db2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                SensorTagDBHelper dbHelper = new SensorTagDBHelper(getBaseContext());
+                dbHelper.clearAll();
+                Toast.makeText(getApplicationContext(), "Successfully Cleared DB", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
 
     }
 }
