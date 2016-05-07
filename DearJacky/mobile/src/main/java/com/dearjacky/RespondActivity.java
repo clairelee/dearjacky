@@ -104,7 +104,7 @@ public class RespondActivity extends AppCompatActivity {
             Map h = getFavoriteContacts();
             List keys = Arrays.asList(h.keySet().toArray());
             ArrayList<Integer> intList = new ArrayList<Integer>();
-            for (int i=1; i<keys.size(); i++) {
+            for (int i=0; i<keys.size(); i++) {
                 intList.add(new Integer(i));
             }
             Collections.shuffle(intList);
@@ -126,7 +126,7 @@ public class RespondActivity extends AppCompatActivity {
             for(int i = 0; i < 4; i++){
                 names[i].setText("");
             }
-
+            Log.d("T", intList.size()+"");
             for(int i = 0; i < Math.min(4,intList.size()); i++){
                 int index = intList.get(i);
                 String name = ((String)keys.get(index));
@@ -179,8 +179,8 @@ public class RespondActivity extends AppCompatActivity {
         String selection = ContactsContract.Contacts.STARRED + "='1'";
 
         Cursor cursor = managedQuery(queryUri, projection, selection, null, null);
-
-        while (cursor.moveToNext()) {
+        cursor.moveToFirst();
+        do{
             String contactID = cursor.getString(cursor
                     .getColumnIndex(ContactsContract.Contacts._ID));
 
@@ -196,9 +196,9 @@ public class RespondActivity extends AppCompatActivity {
                     cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_THUMBNAIL_URI)));
             String[] result = {intentUriString, thumb};
             contactMap.put(title, result);
-        }
+        }while (cursor.moveToNext());
 
-        cursor.close();
+//        cursor.close();
         return contactMap;
     }
 
