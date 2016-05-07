@@ -9,6 +9,7 @@ Yanrong Li
 Dear Jacky is an Android and smartwatch application and a digital companion. Tell Jacky how you're feeling throughout the day so you can record your emotional fluctuations, reflect on your moods, and better respond to any emotional distress.
 
 ## Features
+
 # RECORD
 * Record your current mood on your smartwatch. Choose from four different moods!
 ** Select the intensity of your mood from a scale of 1 to 5.
@@ -20,7 +21,8 @@ Dear Jacky is an Android and smartwatch application and a digital companion. Tel
 # RESPOND
 * Using Natural Language Processing, Jacky offers suggestions on how to make yourself happy again based on your past entries that have put you in a good mood.
 * Call your starred contacts straight from the application, because talking to a friend can help!
-* 
+
+
 ## Contributors
 Jasper Louie
 Akshay Jagadeesh
