@@ -24,6 +24,7 @@ Using Natural Language Processing, Jacky offers suggestions on how to make yours
 * Call your starred contacts straight from the application, because talking to a friend can help!
 
 ## Debugging
+To open this, you should go to your app launcher, and notice that there is a second icon, Dear Jacky Debug. In there you will have a menu that lets you do 3 things:
 * Load the dummy database
 * Clear the database
 * Send notification to the watch
