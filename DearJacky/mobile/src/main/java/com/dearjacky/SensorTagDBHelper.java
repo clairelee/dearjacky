@@ -245,14 +245,19 @@ public class SensorTagDBHelper extends SQLiteOpenHelper {
         //System.out.println("bbbbbbbbb");
         res.moveToFirst();
         int i = 0;
-        while(i < 10)
-        {
-            resList.add(res.getString(res.getColumnIndex(TABLE3_COL3)));
-            i++;
-            //    System.out.println("keywordsssssss: "+ res.getString(res.getColumnIndex(TABLE3_COL3)));
-            res.moveToNext();
-        }
+        try {
+            while (i < 10) {
+                resList.add(res.getString(res.getColumnIndex(TABLE3_COL3)));
+                i++;
+                //    System.out.println("keywordsssssss: "+ res.getString(res.getColumnIndex(TABLE3_COL3)));
+                res.moveToNext();
+            }
+        }catch(Exception e){
 
+        }
+        if(resList.size() == 0){
+            resList.add("Make some happy \nmemories to see them here!");
+        }
         return resList;
     }
 

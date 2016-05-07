@@ -1,6 +1,7 @@
 package com.dearjacky;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
@@ -18,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -71,12 +73,16 @@ public class RespondActivity extends AppCompatActivity {
             TextView keyword_3 = (TextView) findViewById(R.id.keyword_3);
             TextView keyword_4 = (TextView) findViewById(R.id.keyword_4);
             TextView keyword_5 = (TextView) findViewById(R.id.keyword_5);
+            TextView[] tViews = {keyword_1, keyword_2, keyword_3, keyword_4, keyword_5};
 
-            keyword_1.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
-            keyword_2.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
-            keyword_3.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
-            keyword_4.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
-            keyword_5.setText(keywordStrings.remove((int)(Math.random()*keywordStrings.size())));
+            for(TextView tv: tViews){
+                if(keywordStrings.isEmpty()){
+                    ((View)tv.getParent()).setVisibility(View.GONE);
+                    continue;
+                }
+                String keyword = keywordStrings.remove((int)(Math.random()*keywordStrings.size()));
+                tv.setText(keyword);
+            }
 
             Typewriter jackyText2 = (Typewriter) findViewById(R.id.jacky_text2);
             jackyText2.setInitialDelay(1500);
@@ -103,7 +109,19 @@ public class RespondActivity extends AppCompatActivity {
             }
             Collections.shuffle(intList);
             if(intList.size() == 0){
-                name1.setText("Go to your contacts app and star some contacts to see people here!");
+                ((TextView)findViewById(R.id.contacts)).setText("Tap here to go to your contacts app and star some contacts to see people here!");
+                ((TextView)findViewById(R.id.contacts)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent();
+                        i.setComponent(new ComponentName("com.android.contacts", "com.android.contacts.DialtactsContactsEntryActivity"));
+                        i.setAction("android.intent.action.MAIN");
+                        i.addCategory("android.intent.category.LAUNCHER");
+                        i.addCategory("android.intent.category.DEFAULT");
+                        startActivity(i);
+
+                    }
+                });
             }
             for(int i = 0; i < 4; i++){
                 names[i].setText("");
