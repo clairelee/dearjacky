@@ -1,6 +1,7 @@
 package com.dearjacky;
 
 import android.Manifest;
+import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -80,8 +81,17 @@ public class RespondActivity extends AppCompatActivity {
                     ((View)tv.getParent()).setVisibility(View.GONE);
                     continue;
                 }
-                String keyword = keywordStrings.remove((int)(Math.random()*keywordStrings.size()));
+                final String keyword = keywordStrings.remove((int)(Math.random()*keywordStrings.size()));
                 tv.setText(keyword);
+                ((View)tv.getParent()).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                        intent.putExtra(SearchManager.QUERY, keyword); // query contains search string
+                        startActivity(intent);
+
+                    }
+                });
             }
 
             Typewriter jackyText2 = (Typewriter) findViewById(R.id.jacky_text2);
