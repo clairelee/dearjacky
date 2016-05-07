@@ -8,7 +8,7 @@ Yanrong Li
 ## Dear Jacky
 
 # Features
-RECORD 
+_RECORD_
 * Record your current mood on your smartwatch. Choose from four different moods!
 ** Select the intensity of your mood from a scale of 1 to 5.
 ** Use voice dictation to add a note.
