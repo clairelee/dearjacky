@@ -1,10 +1,3 @@
-## Group-39-Project
-Jasper Louie
-Akshay Jagadeesh
-Claire Lee
-Kyle Hotchkiss
-Yanrong Li
-
 # Dear Jacky
 Dear Jacky is an Android and smartwatch application and a digital companion. Tell Jacky how you're feeling throughout the day so you can record your emotional fluctuations, reflect on your moods, and better respond to any emotional distress.
 
