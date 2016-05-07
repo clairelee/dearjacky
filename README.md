@@ -12,9 +12,9 @@ Dear Jacky is an Android and smartwatch application and a digital companion. Tel
 
 ## RECORD
 * Record your current mood on your smartwatch. Choose from four different moods!
-** Select the intensity of your mood from a scale of 1 to 5.
-** Use voice dictation to add a note.
-* On your phone, you can go back to edit past moods or add past moods that you have listed.
+* Select the intensity of your mood from a scale of 1 to 5.
+* Use voice dictation to add a note.
+* On your phone, you can go back to edit past moods or add past moods that you may have forgot.
 
 ## REFLECT
 * See your past moods with a timeline view. Scroll through to see your past moods for each day.
