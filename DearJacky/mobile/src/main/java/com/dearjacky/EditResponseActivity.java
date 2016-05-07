@@ -223,7 +223,7 @@ public class EditResponseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        Toast.makeText(EditResponseActivity.this, String.valueOf(timestamp), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(EditResponseActivity.this, String.valueOf(timestamp), Toast.LENGTH_SHORT).show();
         if (newResponse){
             getMenuInflater().inflate(R.menu.menu, menu);
         }
@@ -274,7 +274,7 @@ public class EditResponseActivity extends AppCompatActivity {
                         Intent NLPintent = new Intent(this, NLPService.class);
                         startService(NLPintent);
                     }
-                    Toast.makeText(EditResponseActivity.this, "Response Saved! " + user_notes + " " + emotion + " " + user_intensity, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditResponseActivity.this, "Response Saved!", Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
                 return true;
