@@ -1,6 +1,9 @@
 # Dear Jacky
 Dear Jacky is an Android and smartwatch application and a digital companion. Tell Jacky how you're feeling throughout the day so you can record your emotional fluctuations, reflect on your moods, and better respond to any emotional distress.
 
+[Full Promotional Video](https://youtu.be/4-Ic13FpcX4)
+
+[Short Promotional Video](https://youtu.be/yuxfU6hwqV4)
 # Features
 
 ## RECORD
